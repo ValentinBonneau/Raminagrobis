@@ -10,7 +10,7 @@ namespace Raminagrobis.DAL
     {
         public int IDLignePanierG { get; private set; }
         public int IDFournisseur { get; private set; }
-        public int prix { get; private set; }
+        public int Prix { get; private set; }
 
 
     }

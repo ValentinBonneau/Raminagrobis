@@ -8,14 +8,19 @@ namespace Raminagrobis.DAL
 {
     public class Adherent_DAL
     {
-        public int ID { get; set; }
-        public String nom { get; set; }
-        public String prenomC { get; set; }
-        public String nomC { get; set; }
-        public String sexeC { get; set; }
-        public String email { get; set; }
-        public String addresse { get; set; }
-        public DateTime dateA { get; set; }
+        public int ID { get; private set; }
+        public String Nom { get; private set; }
+        public String PrenomC { get; private set; }
+        public String NomC { get; private set; }
+        public String SexeC { get; private set; }
+        public String Email { get; private set; }
+        public String Adresse { get; private set; }
+        public DateTime DateA { get; private set; }
+
+        
+
+        public Adherent_DAL(int id, string nom, string prenomC, string nomC, string sexeC, string email, string adresse, DateTime date)
+            => (ID, Nom, PrenomC, NomC, SexeC, Email, Adresse, DateA) = (id, nom, prenomC, nomC, sexeC, email, adresse, date);
 
     }
 }

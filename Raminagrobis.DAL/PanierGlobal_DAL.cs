@@ -9,6 +9,13 @@ namespace Raminagrobis.DAL
     public class PanierGlobal_DAL
     {
         public int ID { get; private set; }
-        public DateTime? date { get; private set; }
+        public DateTime Date { get; private set; }
+        public List<LignePanierG_DAL> LignesG { get; private set; }
+        public PanierGlobal_DAL(IEnumerable<LignePanierG_DAL> desLignesG) => (LignesG) = (desLignesG.ToList());
+        public PanierGlobal_DAL(int id, DateTime date, IEnumerable<LignePanierG_DAL> desLignesG)
+            => (ID, Date, LignesG) = (id, date, desLignesG.ToList());
+
+
     }
 }
+    
