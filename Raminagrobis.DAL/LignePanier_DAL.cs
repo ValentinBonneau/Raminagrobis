@@ -11,9 +11,15 @@ namespace Raminagrobis.DAL
 
         public int ID { get; private set; }
         public int IDRef { get; private set; }
-        public int quantite { get; private set; }
+        public int Quantite { get; private set; }
         public int IDPanier { get; private set; }
 
+        public Reference_DAL Refs { get; private set; }
+        public Panier_DAL Pan { get; private set; }
 
+        public LignePanier_DAL(int id, int idRef, int quantite, int idPanier)
+            => (ID, IDPanier, Quantite, IDRef) = (id, idRef, quantite, idPanier);
+        public LignePanier_DAL(int id, Reference_DAL refs, int quantite, Panier_DAL pans)
+            => (ID, Refs, Quantite, Pan) = (id, refs, quantite, pans);
     }
 }

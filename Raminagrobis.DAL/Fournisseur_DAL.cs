@@ -8,13 +8,17 @@ namespace Raminagrobis.DAL
     public class Fournisseur_DAL
     {
         public int ID { get; private set; }
-        public string nom { get; private set; }
-        public string prenomC { get; private set; }
-        public string nomC { get; private set; }
-        public string sexeC { get; private set; }
-        public string email { get; private set; }
-        public string adresse { get; private set; }
+        public String Nom { get; private set; }
+        public String PrenomC { get; private set; }
+        public String NomC { get; private set; }
+        public String SexeC { get; private set; }
+        public String Email { get; private set; }
+        public String Adresse { get; private set; }
+        
 
+        public Fournisseur_DAL(int id, string nom, string prenomC, string nomC, string sexeC, string email, string adresse)
+            => (ID, Nom, PrenomC, NomC, SexeC, Email, Adresse) = (id, nom, prenomC, nomC, sexeC, email, adresse);
+       
 
 
     }
