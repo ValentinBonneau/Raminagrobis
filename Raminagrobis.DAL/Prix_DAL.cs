@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    class Prix_DAL
+    public class Prix_DAL
     {
         public int IDLignePanierG { get; private set; }
         public int IDFournisseur { get; private set; }

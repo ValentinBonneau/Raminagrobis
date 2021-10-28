@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    class LignePanierG_DAL
+    public class LignePanierG_DAL
     {
 
         public int ID { get; private set; }

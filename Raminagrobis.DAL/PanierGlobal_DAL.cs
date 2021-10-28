@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    public class LignePanier_DAL
+    public class PanierGlobal_DAL
     {
-
         public int ID { get; private set; }
-        public int IDRef { get; private set; }
-        public int quantite { get; private set; }
-        public int IDPanier { get; private set; }
-
-
+        public DateTime? date { get; private set; }
     }
 }
