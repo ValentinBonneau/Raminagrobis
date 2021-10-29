@@ -68,8 +68,36 @@ namespace Raminagrobis.DAL.Depot
             DetruireConnexionEtCommande();
 
             return reponse;
-        }
 
+        }
+        public List<Fournisseur_DAL> GetAllByIDRef(int ID)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, nom, prenomc, nomC, sexeC, email, adresse from Fournisseur where id=@id";
+            commande.Parameters.Add(new SqlParameter("@id", ID));
+
+            var reader = commande.ExecuteReader();
+
+            var listeDeFournisseur = new List<Fournisseur_DAL>();
+
+            while (reader.Read())
+            {
+                var p = new Fournisseur_DAL(reader.GetInt32(0),
+                                        reader.GetString(1),
+                                        reader.GetString(2),
+                                        reader.GetString(3),
+                                        reader.GetString(4),
+                                        reader.GetString(5),
+                                        reader.GetString(6));
+
+                listeDeFournisseur.Add(p);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeFournisseur;
+        }
         public override Fournisseur_DAL Insert(Fournisseur_DAL item)
         {
             CreerConnexionEtCommande();
@@ -120,7 +148,7 @@ namespace Raminagrobis.DAL.Depot
         public override void Delete(Fournisseur_DAL item)
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "delete from Point where ID=@ID";
+            commande.CommandText = "delete from Point where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
             var reader = commande.ExecuteReader();
 

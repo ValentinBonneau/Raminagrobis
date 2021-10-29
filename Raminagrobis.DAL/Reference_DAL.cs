@@ -9,7 +9,7 @@ namespace Raminagrobis.DAL
     public class Reference_DAL
     {
 
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public String Reference { get; private set; }
         public String Nom { get; private set; }
         public String Marque { get; private set; }
@@ -20,6 +20,7 @@ namespace Raminagrobis.DAL
         public Reference_DAL(int id, string reference, string nom, string marque, IEnumerable<Fournisseur_DAL> desFours)
             => (ID, Reference, Nom, Marque, Fours) = (id, reference, nom, marque, desFours.ToList());
 
+        
 
     }
 }

@@ -1,0 +1,122 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.SqlClient;
+
+namespace Raminagrobis.DAL.Depot
+{
+    public class PrixDepot_DAL : Depot_DAL<Prix_DAL>
+    {
+        public override List<Prix_DAL> GetAll()
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idLignePanierG, idFournisseur, prix from Prix";
+            var reader = commande.ExecuteReader();
+
+            var listeDeLigne = new List<Prix_DAL>();
+
+            while (reader.Read())
+            {
+                var p = new Prix_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2)
+                                         );
+
+                listeDeLigne.Add(p);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLigne;
+
+        }
+
+        public override Prix_DAL GetByID(int idFournisseur)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select idLignePanierG, idFournisseur, prix from Prix where idFournisseur=@idFournisseur ";
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", idFournisseur));
+            var reader = commande.ExecuteReader();
+
+
+            Prix_DAL reponse;
+
+            if (reader.Read())
+            {
+                reponse = new Prix_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2)
+                                        ); ;
+            }
+            else
+            {
+                throw new Exception($"Pas de Prix à l'id {idFournisseur}");
+            }
+
+            DetruireConnexionEtCommande();
+
+            return reponse;
+        }
+
+        public override Prix_DAL Insert(Prix_DAL item)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "insert into Prix(idLignePanierG, idFournisseur, prix)" + " values (@idLignePanierG, @idFournisseur, @prix); select scope_identity()";
+            commande.Parameters.Add(new SqlParameter("@idLignePanierG", item.IDLignePanierG));
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
+            commande.Parameters.Add(new SqlParameter("@prix", item.Prix));
+            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
+
+            
+
+
+            DetruireConnexionEtCommande();
+
+            return item;
+        }
+
+        public override Prix_DAL Update(Prix_DAL item)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "update Prix SET idLignePanierG = @idLignePanierG, idFournisseur = @idFournisseur, prix = @prix where id = @id";
+            commande.Parameters.Add(new SqlParameter("@idLignePanierG", item.IDLignePanierG));
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
+            commande.Parameters.Add(new SqlParameter("@prix", item.Prix));
+
+
+            var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
+
+            if (nombreDeLignesAffectees != 1)
+            {
+                throw new Exception($"Impossible de mettre à jour le Prix d'ID {item.ID}");
+            }
+
+
+            DetruireConnexionEtCommande();
+
+            return item;
+        }
+
+        public override void Delete(Prix_DAL item)
+        {
+            CreerConnexionEtCommande();
+            commande.CommandText = "delete from Prix where idFournisseur=@idFournisseur";
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
+            var reader = commande.ExecuteReader();
+
+
+            if (commande.ExecuteNonQuery() == 0)
+            {
+                throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table Prix");
+            }
+            DetruireConnexionEtCommande();
+        }
+    }
+}
+}

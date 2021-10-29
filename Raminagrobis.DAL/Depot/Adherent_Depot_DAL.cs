@@ -117,7 +117,17 @@ namespace Raminagrobis.DAL.Depot
 
         public override void Delete(Adherent_DAL item)
         {
-            throw new NotImplementedException();
+            CreerConnexionEtCommande();
+            commande.CommandText = "delete from Adherent where id=@ID";
+            commande.Parameters.Add(new SqlParameter("@ID", item.ID));
+            var reader = commande.ExecuteReader();
+
+
+            if (commande.ExecuteNonQuery() == 0)
+            {
+                throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table Adherent");
+            }
+            DetruireConnexionEtCommande();
         }
     }
 }

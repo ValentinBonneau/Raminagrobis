@@ -9,7 +9,7 @@ namespace Raminagrobis.DAL
     public class LignePanierG_DAL
     {
 
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public int IDPanierG { get; private set; }
         public int IDRef{ get; private set; }
         public Reference_DAL Refs { get; private set; }
