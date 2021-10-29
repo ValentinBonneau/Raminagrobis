@@ -7,7 +7,7 @@ namespace Raminagrobis.DAL
 {
     public class Fournisseur_DAL
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public String Nom { get; private set; }
         public String PrenomC { get; private set; }
         public String NomC { get; private set; }
