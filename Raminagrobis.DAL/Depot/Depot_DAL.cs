@@ -14,7 +14,7 @@ namespace Raminagrobis.DAL.Depot
         public string ChaineDeConnexion { get; set; }
 
         protected SqlConnection connexion;
-        protected SqlCommand command;
+        protected SqlCommand commande;
 
         public Depot_DAL()
         {
@@ -27,13 +27,13 @@ namespace Raminagrobis.DAL.Depot
         {
             connexion = new SqlConnection(ChaineDeConnexion);
             connexion.Open();
-            command = new SqlCommand();
-            command.Connection = connexion;
+            commande = new SqlCommand();
+            commande.Connection = connexion;
         }
 
         protected void DetruireConnexionEtCommande()
         {
-            command.Dispose();
+            commande.Dispose();
             connexion.Close();
             connexion.Dispose();
 
