@@ -8,7 +8,7 @@ namespace Raminagrobis.DAL
 {
     public class Panier_DAL
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
         public int IDAdherent { get; private set; }
         public int IDPanierG { get; private set; }
 
@@ -20,5 +20,7 @@ namespace Raminagrobis.DAL
 
         public Panier_DAL(int id, int idAdherent, int idPanierG, Adherent_DAL adherent, IEnumerable<LignePanier_DAL> desLignes)
             => (ID, IDAdherent, IDPanierG, Adherent, Lignes) = (id, idAdherent, idPanierG, adherent, desLignes.ToList());
+
+        public Panier_DAL(int id, int idAdherent) => (ID, IDAdherent) = (id, idAdherent);
     }
 }
