@@ -9,15 +9,17 @@ namespace Raminagrobis.Metier
         public string Nom { get; private set; }
         public string NomC { get; private set; }
         public string PrenomC { get; private set; }
+        public string SexeC { get; private set; }
         public string Email { get; private set; }
         public string Adresse { get; private set; }
 
         public List<ReferenceMetier> Refs { get; private set; }
-        public FournisseurMetier(string nom, string nomC, string prenomC, string email, string adresse)
+        public FournisseurMetier(string nom, string nomC, string prenomC, string sexeC, string email, string adresse)
         {
             Nom = nom;
             NomC = nomC;
             PrenomC = prenomC;
+            SexeC = sexeC;
             Email = email;
             Adresse = adresse;
             Refs = new List<ReferenceMetier>();
