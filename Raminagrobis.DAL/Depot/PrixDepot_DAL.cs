@@ -94,7 +94,7 @@ namespace Raminagrobis.DAL.Depot
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour le Prix d'ID {item.ID}");
+                throw new Exception($"Impossible de mettre à jour le Prix d'ID {item.IDFournisseur}");
             }
 
 
@@ -113,10 +113,10 @@ namespace Raminagrobis.DAL.Depot
 
             if (commande.ExecuteNonQuery() == 0)
             {
-                throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table Prix");
+                throw new Exception($"Aucune occurance à l'ID {item.IDFournisseur} dans la table Prix");
             }
             DetruireConnexionEtCommande();
         }
     }
 }
-}
+
