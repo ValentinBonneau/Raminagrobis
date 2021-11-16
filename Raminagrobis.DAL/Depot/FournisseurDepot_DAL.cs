@@ -25,7 +25,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetString(4),
+                                        reader.GetBoolean(4).ToString(),
                                         reader.GetString(5),
                                         reader.GetString(6)
                                         ); ;

@@ -84,7 +84,7 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update Prix SET idLignePanierG = @idLignePanierG, idFournisseur = @idFournisseur, prix = @prix where id = @id";
+            commande.CommandText = "update Prix SET prix = @prix where idLignePanierG = @idLignePanierG AND idFournisseur = @idFournisseur";
             commande.Parameters.Add(new SqlParameter("@idLignePanierG", item.IDLignePanierG));
             commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
             commande.Parameters.Add(new SqlParameter("@prix", item.Prix));
@@ -94,7 +94,7 @@ namespace Raminagrobis.DAL.Depot
 
             if (nombreDeLignesAffectees != 1)
             {
-                throw new Exception($"Impossible de mettre à jour le Prix d'ID {item.ID}");
+                throw new Exception($"Impossible de mettre à jour le Prix d'ID de panier global {item.IDLignePanierG} et l'ID de fournisseur {item.IDFournisseur}");
             }
 
 
@@ -106,17 +106,18 @@ namespace Raminagrobis.DAL.Depot
         public override void Delete(Prix_DAL item)
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "delete from Prix where idFournisseur=@idFournisseur";
+            commande.CommandText = "delete from Prix where idLignePanierG = @idLignePanierG AND idFournisseur = @idFournisseur";
             commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
+            commande.Parameters.Add(new SqlParameter("@idLignePanierG", item.IDLignePanierG));
             var reader = commande.ExecuteReader();
 
 
             if (commande.ExecuteNonQuery() == 0)
             {
-                throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table Prix");
+                throw new Exception($"Aucune occurance à  l'ID de panier global {item.IDLignePanierG} et l'ID de fournisseur {item.IDFournisseur} dans la table Prix");
             }
             DetruireConnexionEtCommande();
         }
     }
 }
-}
+

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RaminagrobisAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RaminagrobisAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("fourniseurs")]
     [ApiController]
     public class FournisseurController : ControllerBase
     {
@@ -16,7 +17,8 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            
+            return Fournisseurs.GetAll();
         }
 
         // GET api/<FournisseurController>/5

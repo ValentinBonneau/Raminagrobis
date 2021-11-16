@@ -33,7 +33,7 @@ namespace Raminagrobis.DAL.Depot
 
         }
 
-        public abstract Panier_DAL GetByID(int ID)
+        public override Panier_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
 
