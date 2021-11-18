@@ -25,13 +25,14 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return Fournisseurs.GetByID(id);
         }
 
         // POST api/<FournisseurController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] string json)
         {
+            Fournisseurs.Insert(json);
         }
 
         // PUT api/<FournisseurController>/5

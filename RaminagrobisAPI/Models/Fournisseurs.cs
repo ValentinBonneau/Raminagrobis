@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Raminagrobis.DAL;
 using Raminagrobis.DAL.Depot;
 using Raminagrobis.Metier;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace RaminagrobisAPI.Models
 {
@@ -17,24 +19,29 @@ namespace RaminagrobisAPI.Models
             var depot = new FournisseurDepot_DAL();
             foreach (var item in depot.GetAll())
             {
-                var temp = ToJSON(item);
+                var temp = JsonSerializer.Serialize(item);
                 result.Add(temp);
             }
             return result;
         }
-
-        public static string ToJSON(Fournisseur_DAL fournisseur)
+        public static string GetByID(int id)
         {
-            var sb = new StringBuilder();
-            sb.Append("{");
-            sb.Append($"{'"'}nom{'"'} : {'"'}{fournisseur.Nom}{'"'},");
-            sb.Append($"{'"'}nomC{'"'} : {'"'}{fournisseur.NomC}{'"'},");
-            sb.Append($"{'"'}prenomC{'"'} : {'"'}{fournisseur.PrenomC}{'"'},");
-            sb.Append($"{'"'}sexeC{'"'} : {'"'}{fournisseur.SexeC}{'"'},");
-            sb.Append($"{'"'}email{'"'} : {'"'}{fournisseur.Email}{'"'},");
-            sb.Append($"{'"'}adresse{'"'} : {'"'}{fournisseur.Adresse}{'"'}");
-            sb.Append("}");
-            return sb.ToString();
+            var depot = new FournisseurDepot_DAL();
+            var fournisseur = depot.GetByID(id);
+            return JsonSerializer.Serialize(fournisseur);
+        }
+
+        public static void Insert(string json)
+        {
+            var fournisseur = JsonSerializer.Deserialize<Fournisseur_DAL>(json);
+            var depot = new FournisseurDepot_DAL();
+            depot.Insert(fournisseur);
+        }
+        public static void Insert(string nom, string prenomC, string nomC, bool sexeC, string email, string adresse)
+        {
+            var fournisseur = new Fournisseur_DAL(nom, prenomC, nomC, sexeC, email, adresse);
+            var depot = new FournisseurDepot_DAL();
+            depot.Insert(fournisseur);
         }
     }
 }
