@@ -25,7 +25,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetBoolean(4).ToString(),
+                                        reader.GetBoolean(4),
                                         reader.GetString(5),
                                         reader.GetString(6)
                                         ); ;
@@ -43,7 +43,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "select id, nom, prenomC, nomC, sexeC, email, adresse from Fournisseur where id=@id ";
-            commande.Parameters.Add(new SqlParameter("@id", ID));
+            commande.Parameters.Add(new SqlParameter("@id", ID.ToString()));
             var reader = commande.ExecuteReader();
 
 
@@ -55,10 +55,10 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetString(4),
+                                        reader.GetBoolean(4),
                                         reader.GetString(5),
                                         reader.GetString(6)
-                                        ); ;
+                                        );
             }
             else
             {
@@ -87,7 +87,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetString(4),
+                                        reader.GetBoolean(4),
                                         reader.GetString(5),
                                         reader.GetString(6));
 
@@ -106,7 +106,7 @@ namespace Raminagrobis.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@prenomC", item.PrenomC));
             commande.Parameters.Add(new SqlParameter("@nomC", item.NomC));
-            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC));
+            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC.ToString()));
             commande.Parameters.Add(new SqlParameter("@email", item.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", item.Adresse));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());

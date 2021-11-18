@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Raminagrobis.DAL;
+using Raminagrobis.DAL.Depot;
 using RaminagrobisAPI.Models;
+using RaminagrobisAPI.Tampon;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,13 +28,14 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return Fournisseurs.GetByID(id);
         }
 
         // POST api/<FournisseurController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] FournisseurTemp fournisseur)
         {
+            Fournisseurs.Insert(fournisseur);
         }
 
         // PUT api/<FournisseurController>/5
