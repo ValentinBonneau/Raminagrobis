@@ -148,10 +148,8 @@ namespace Raminagrobis.DAL.Depot
         public override void Delete(Fournisseur_DAL item)
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "delete from Point where id=@ID";
+            commande.CommandText = "delete from Fournisseur where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
-
 
             if (commande.ExecuteNonQuery() == 0)
             {

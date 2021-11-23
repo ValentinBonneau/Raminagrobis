@@ -45,6 +45,14 @@ namespace RaminagrobisAPI.Models
             var depot = new FournisseurDepot_DAL();
             depot.Update(fournisseur);
         }
+
+        internal static void Delete(int id)
+        {
+            Fournisseur_DAL fournisseur;
+            FournisseurDepot_DAL depot = new FournisseurDepot_DAL();
+            fournisseur = depot.GetByID(id);
+            depot.Delete(fournisseur);
+        }
     }
 }
 

@@ -48,6 +48,7 @@ namespace RaminagrobisAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Fournisseurs.Delete(id);
         }
     }
 }
