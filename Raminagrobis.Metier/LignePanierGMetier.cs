@@ -20,5 +20,11 @@ namespace Raminagrobis.Metier
             Quantite = quantite;
             refs = reference;
         }
+        public void Insert()
+        {
+            LignePanierG_DAL ligneG = new LignePanierG_DAL(IDPanierG, refs, Quantite);
+            LignePanierGDepot_DAL ligneGD = new LignePanierGDepot_DAL();
+            ligneGD.Insert(ligneG);
+        }
     }
 }
