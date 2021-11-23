@@ -53,6 +53,7 @@ namespace RaminagrobisAPI.Models
             fournisseur = depot.GetByID(id);
             depot.Delete(fournisseur);
         }
+        
     }
 }
 

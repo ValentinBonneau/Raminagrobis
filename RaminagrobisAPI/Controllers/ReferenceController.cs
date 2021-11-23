@@ -11,45 +11,43 @@ using RaminagrobisAPI.Tampon;
 
 namespace RaminagrobisAPI.Controllers
 {
-    [Route("fournisseurs")]
+    [Route("reference")]
     [ApiController]
-    public class FournisseurController : ControllerBase
+    public class ReferenceController : ControllerBase
     {
-        // GET: api/<FournisseurController>
+        // GET: api/<ReferenceController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            
-            return Fournisseurs.GetAll();
+            return Reference.GetAll();
         }
 
-        // GET api/<FournisseurController>/5
+        // GET api/<ReferenceController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return Fournisseurs.GetByID(id);
+            return Reference.GetByID(id);
         }
 
-        // POST api/<FournisseurController>
+        // POST api/<ReferenceController>
         [HttpPost]
-        public void Post([FromBody] FournisseurTemp fournisseur)
+        public void Post([FromBody] ReferenceTemp reference)
         {
-            Fournisseurs.Insert(fournisseur);
+            Reference.Insert(reference);
         }
 
-        // PUT api/<FournisseurController>/5
+        // PUT api/<ReferenceController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] FournisseurTemp fournisseur)
+        public void Put(int id, [FromBody] ReferenceTemp reference)
         {
-            Fournisseurs.Edit(id, fournisseur);
+            Reference.Edit(id, reference);
         }
 
-        // DELETE api/<FournisseurController>/5
+        // DELETE api/<ReferenceController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            Fournisseurs.Delete(id);
+            Reference.Delete(id);
         }
-       
     }
 }

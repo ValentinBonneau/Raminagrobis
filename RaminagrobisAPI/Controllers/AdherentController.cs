@@ -43,6 +43,7 @@ namespace RaminagrobisAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            Adherent.Delete(id);
         }
     }
 }

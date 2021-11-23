@@ -120,7 +120,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from Reference where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
+            
 
 
             if (commande.ExecuteNonQuery() == 0)

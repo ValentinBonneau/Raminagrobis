@@ -41,9 +41,18 @@ namespace RaminagrobisAPI.Models
 
         internal static void Edit(int id, AdherentTemp input)
         {
-            var Adherent = new Adherent_DAL(input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA);
+            var Adherent = new Adherent_DAL(id, input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA);
             var depot = new Adherent_Depot_DAL();
             depot.Update(Adherent);
         }
+        internal static void Delete(int id)
+        {
+            Adherent_DAL Adherent;
+            Adherent_Depot_DAL depot = new Adherent_Depot_DAL();
+            Adherent = depot.GetByID(id);
+            depot.Delete(Adherent);
+
+        }
+        
     }
 }
