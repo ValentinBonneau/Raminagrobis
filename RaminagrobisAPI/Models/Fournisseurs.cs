@@ -38,6 +38,13 @@ namespace RaminagrobisAPI.Models
             var depot = new FournisseurDepot_DAL();
             depot.Insert(fournisseur);
         }
+
+        internal static void Edit(int id, FournisseurTemp input)
+        {
+            var fournisseur = new Fournisseur_DAL(id,input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse);
+            var depot = new FournisseurDepot_DAL();
+            depot.Update(fournisseur);
+        }
     }
 }
 

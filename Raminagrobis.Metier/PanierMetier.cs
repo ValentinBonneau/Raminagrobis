@@ -19,8 +19,6 @@ namespace Raminagrobis.Metier
         public List<LignePanierMetier> lignes { get; private set; }
 
 
-
-
         public PanierMetier(int id, int idAdherent, int idPanierG, List<LignePanierMetier> ligne)
 
         {
@@ -85,5 +83,6 @@ namespace Raminagrobis.Metier
         {
             desLignes.Add(ligne);
         }
+       
     }
 }

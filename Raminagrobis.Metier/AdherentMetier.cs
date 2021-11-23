@@ -43,8 +43,6 @@ namespace Raminagrobis.Metier
             adh.Insert(adherent);
         }
 
-        
-
     }
     
 }
