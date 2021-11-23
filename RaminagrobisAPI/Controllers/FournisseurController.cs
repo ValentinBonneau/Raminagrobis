@@ -41,7 +41,7 @@ namespace RaminagrobisAPI.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] FournisseurTemp fournisseur)
         {
-            //Fournisseurs.
+            Fournisseurs.Edit(id, fournisseur);
         }
 
         // DELETE api/<FournisseurController>/5
