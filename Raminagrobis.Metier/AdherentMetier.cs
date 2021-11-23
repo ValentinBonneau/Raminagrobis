@@ -19,7 +19,7 @@ namespace Raminagrobis.Metier
         public string Email { get; private set; }
         public string Adresse { get; private set; }
         public DateTime Date { get; private set; }
-        public PanierMetier paniers { get; private set; }
+        
 
 
         
