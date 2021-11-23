@@ -10,13 +10,13 @@ namespace Raminagrobis.Metier
 {
     class LignePanierMetier
     {
-        public int IDRef { get; private set; }
+        public string refs { get; private set; }
         public int Quantite { get; private set; }
         public int IDPanier { get; private set; }
 
-        public LignePanierMetier(int idRef, int quantite, int idPanier)
+        public LignePanierMetier(string reference, int quantite, int idPanier)
         {
-            IDRef = idRef;
+            refs = reference;
             Quantite = quantite;
             IDPanier = idPanier;
         }

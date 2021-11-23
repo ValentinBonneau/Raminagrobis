@@ -16,13 +16,20 @@ namespace Raminagrobis.Metier
         public int IDPanierG { get; private set; }
         public List<LignePanier_DAL> desLignes { get; private set; }
 
+        public List<LignePanierMetier> lignes { get; private set; }
 
-        public PanierMetier(int id, int idAdherent, int idPanierG)
+        
+
+
+        public PanierMetier(int id, int idAdherent, int idPanierG, List<LignePanierMetier> ligne)
+
         {
             ID = id;
             IDAdherent = idAdherent;
             IDPanierG = idPanierG;
+            lignes = ligne;
         } 
+
         public void AddFromCSV(StreamReader sr)
         {
 
@@ -78,5 +85,6 @@ namespace Raminagrobis.Metier
         {
             desLignes.Add(ligne);
         }
+       
     }
 }
