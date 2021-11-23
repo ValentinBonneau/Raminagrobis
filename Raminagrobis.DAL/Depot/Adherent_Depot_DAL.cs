@@ -31,6 +31,8 @@ namespace Raminagrobis.DAL.Depot
                     reader.GetString(5), 
                     reader.GetString(6),
                     reader.GetDateTime(7));
+
+                reponse.Add(adherent);
             }
 
             DetruireConnexionEtCommande();

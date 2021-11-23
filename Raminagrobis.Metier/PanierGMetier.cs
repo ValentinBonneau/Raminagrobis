@@ -23,7 +23,7 @@ namespace Raminagrobis.Metier
        
         public void Insert()
         {
-            PanierGlobal_DAL panierG = new PanierGlobal_DAL(ID, Date, lignesG);
+            PanierGlobal_DAL panierG = new PanierGlobal_DAL(ID, Date);
             PanierGlobalDepot_DAL panierGD = new PanierGlobalDepot_DAL();
             panierGD.Insert(panierG);
         }
