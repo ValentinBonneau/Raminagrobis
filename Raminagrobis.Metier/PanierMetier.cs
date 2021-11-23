@@ -18,17 +18,17 @@ namespace Raminagrobis.Metier
 
         public List<LignePanierMetier> lignes { get; private set; }
 
-        
 
 
-        public PanierMetier(int idAdherent, int idPanierG, List<LignePanierMetier> ligne)
+
+        public PanierMetier(int id, int idAdherent, int idPanierG, List<LignePanierMetier> ligne)
 
         {
             ID = id;
             IDAdherent = idAdherent;
             IDPanierG = idPanierG;
             lignes = ligne;
-        } 
+        }
 
         public void AddFromCSV(StreamReader sr)
         {
@@ -54,7 +54,7 @@ namespace Raminagrobis.Metier
                             case "quantite":
                                 quantite = Int32.Parse(column[i]);
                                 break;
-                           
+
                             default:
                                 throw new Exception($"Syntaxe incorecte dans le nom de la colone : {columnName[i]} ");
                         }
@@ -65,7 +65,7 @@ namespace Raminagrobis.Metier
                     }
                     else
                     {
-                        
+
                         this.Ajouter_Ligne(new LignePanier_DAL(refs, quantite, ID));
 
                     }
@@ -84,18 +84,6 @@ namespace Raminagrobis.Metier
         public void Ajouter_Ligne(LignePanier_DAL ligne)
         {
             desLignes.Add(ligne);
-
-
-        public void ajouterLigne(string refs, int quantite, int id)
-        {
-            LignePanierMetier ligne = new LignePanierMetier(refs, quantite, id );
-            lignes.Add(ligne);
-        }
-
-        public List<LignePanierMetier> getLigne()
-        {
-            return lignes;
-
         }
     }
 }
