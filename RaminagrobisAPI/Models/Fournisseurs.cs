@@ -8,6 +8,7 @@ using Raminagrobis.DAL.Depot;
 using Raminagrobis.Metier;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using RaminagrobisAPI.Tampon;
 
 namespace RaminagrobisAPI.Models
 {
@@ -31,15 +32,9 @@ namespace RaminagrobisAPI.Models
             return JsonSerializer.Serialize(fournisseur);
         }
 
-        public static void Insert(string json)
+        public static void Insert(FournisseurTemp input)
         {
-            var fournisseur = JsonSerializer.Deserialize<Fournisseur_DAL>(json);
-            var depot = new FournisseurDepot_DAL();
-            depot.Insert(fournisseur);
-        }
-        public static void Insert(string nom, string prenomC, string nomC, bool sexeC, string email, string adresse)
-        {
-            var fournisseur = new Fournisseur_DAL(nom, prenomC, nomC, sexeC, email, adresse);
+            var fournisseur = new Fournisseur_DAL(input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse);
             var depot = new FournisseurDepot_DAL();
             depot.Insert(fournisseur);
         }
