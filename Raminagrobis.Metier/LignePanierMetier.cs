@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raminagrobis.DAL;
+using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {
@@ -18,5 +20,6 @@ namespace Raminagrobis.Metier
             Quantite = quantite;
             IDPanier = idPanier;
         }
+        
     }
 }

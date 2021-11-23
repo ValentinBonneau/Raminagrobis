@@ -21,6 +21,11 @@ namespace Raminagrobis.DAL.Depot
             var builder = new ConfigurationBuilder();
             var config = builder.AddJsonFile("appsettings.json", false, true).Build();
             ChaineDeConnexion = config.GetSection("ConnectionStrings:default").Value;
+            if (ChaineDeConnexion == null)
+            {
+                throw new Exception($"la chaine de connexion n'est pas definie {config.GetSection("ConnectionStrings").GetChildren().ToString()}");
+            }
+            //TODO la chaine de connexion fonctione pas
         }
 
         protected void CreerConnexionEtCommande()

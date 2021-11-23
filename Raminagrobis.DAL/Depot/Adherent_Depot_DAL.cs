@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL.Depot
 {
-    class Adherent_Depot_DAL : Depot_DAL<Adherent_DAL>
+    public class Adherent_Depot_DAL : Depot_DAL<Adherent_DAL>
     {
         
 

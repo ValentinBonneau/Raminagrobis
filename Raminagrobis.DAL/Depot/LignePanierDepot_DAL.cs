@@ -21,7 +21,7 @@ namespace Raminagrobis.DAL.Depot
             while (reader.Read())
             {
                 var p = new LignePanier_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                                        reader.GetString(1),
                                         reader.GetInt32(2),
                                         reader.GetInt32(3)
                                          );
@@ -49,7 +49,7 @@ namespace Raminagrobis.DAL.Depot
             if (reader.Read())
             {
                 reponse = new LignePanier_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1),
+                                        reader.GetString(1),
                                         reader.GetInt32(2),
                                         reader.GetInt32(3)
                                         ); ;
@@ -69,7 +69,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into LignePanier(idRef, quantite, idPanier)" + " values (@idRef, @quantite, @idPanier); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
             commande.Parameters.Add(new SqlParameter("@idPanier", item.IDPanier));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
@@ -87,7 +87,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "update LignePanier SET idRef=@idRef, quantite = @quantite, idPanier = @idPanier where id = @id";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
             commande.Parameters.Add(new SqlParameter("@idPanier", item.IDPanier));
 
