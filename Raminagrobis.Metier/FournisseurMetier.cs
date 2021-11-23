@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Raminagrobis.DAL;
+using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {

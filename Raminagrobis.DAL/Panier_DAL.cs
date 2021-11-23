@@ -18,8 +18,10 @@ namespace Raminagrobis.DAL
 
         public Panier_DAL(IEnumerable<LignePanier_DAL> desLignes) => (Lignes) = (desLignes.ToList());
 
-        public Panier_DAL(int id, int idAdherent, int idPanierG, Adherent_DAL adherent, IEnumerable<LignePanier_DAL> desLignes)
-            => (ID, IDAdherent, IDPanierG, Adherent, Lignes) = (id, idAdherent, idPanierG, adherent, desLignes.ToList());
+        public Panier_DAL(int id, int idAdherent, int idPanierG, IEnumerable<LignePanier_DAL> desLignes)
+            => (ID, IDAdherent, IDPanierG, Lignes) = (id, idAdherent, idPanierG, desLignes.ToList());
+        public Panier_DAL(int idAdherent, int idPanierG, IEnumerable<LignePanier_DAL> desLignes)
+            => (IDAdherent, IDPanierG, Lignes) = (idAdherent, idPanierG, desLignes.ToList());
 
         public Panier_DAL(int id, int idAdherent) => (ID, IDAdherent) = (id, idAdherent);
     }

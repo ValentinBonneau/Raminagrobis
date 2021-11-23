@@ -60,22 +60,29 @@ namespace Raminagrobis.DAL.Depot
             return reponse;
         }
 
-        public override Panier_DAL Insert(Panier_DAL item)
+        public override Panier_DAL Insert(Panier_DAL panier)
         {
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into Panier(idAdherent, idPanierG)" + " values (@idAdherent, @idPanierG); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idAdherent", item.IDAdherent));
-            commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+            commande.Parameters.Add(new SqlParameter("@idAdherent", panier.IDAdherent));
+            commande.Parameters.Add(new SqlParameter("@idPanierG", panier.IDPanierG));
 
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            item.ID = id;
+            panier.ID = id;
+            var depotLigne = new LignePanierDepot_DAL();
+            foreach (var item in panier.Lignes)
+            {
+                item.IDPanier = id;
+                depotLigne.Insert(item);
+
+            }
 
 
             DetruireConnexionEtCommande();
 
-            return item;
+            return panier;
         }
 
         public override Panier_DAL Update(Panier_DAL item)

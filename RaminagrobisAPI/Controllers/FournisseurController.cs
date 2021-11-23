@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Raminagrobis.DAL;
 using RaminagrobisAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RaminagrobisAPI.Controllers
 {
-    [Route("fourniseurs")]
+    [Route("fournisseurs")]
     [ApiController]
     public class FournisseurController : ControllerBase
     {
@@ -30,7 +31,7 @@ namespace RaminagrobisAPI.Controllers
 
         // POST api/<FournisseurController>
         [HttpPost]
-        public void Post([FromBody] string json)
+        public void Post([FromBody] Fournisseur_DAL json)
         {
             Fournisseurs.Insert(json);
         }

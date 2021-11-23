@@ -106,7 +106,7 @@ namespace Raminagrobis.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@prenomC", item.PrenomC));
             commande.Parameters.Add(new SqlParameter("@nomC", item.NomC));
-            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC));
+            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC.ToString()));
             commande.Parameters.Add(new SqlParameter("@email", item.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", item.Adresse));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());

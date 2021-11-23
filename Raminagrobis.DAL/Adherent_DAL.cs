@@ -21,6 +21,8 @@ namespace Raminagrobis.DAL
 
         public Adherent_DAL(int id, string nom, string prenomC, string nomC, string sexeC, string email, string adresse, DateTime date)
             => (ID, Nom, PrenomC, NomC, SexeC, Email, Adresse, DateA) = (id, nom, prenomC, nomC, sexeC, email, adresse, date);
+        public Adherent_DAL(string nom, string prenomC, string nomC, string sexeC, string email, string adresse, DateTime date)
+            => ( Nom, PrenomC, NomC, SexeC, Email, Adresse, DateA) = ( nom, prenomC, nomC, sexeC, email, adresse, date);
 
     }
 }
