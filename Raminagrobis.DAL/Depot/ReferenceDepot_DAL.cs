@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,6 +99,7 @@ namespace Raminagrobis.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
+
             commande.Parameters.Add(new SqlParameter("@id", item.ID));
 
             var nombreDeLignesAffectees = (int)commande.ExecuteNonQuery();
@@ -130,3 +131,4 @@ namespace Raminagrobis.DAL.Depot
         }
     }
 }
+

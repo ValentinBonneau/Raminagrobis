@@ -23,5 +23,17 @@ namespace Raminagrobis.Metier
             Nom= nom;
             Marque = marque;
         }
+        public string getRef()
+        {
+            return Refs;
+        }
+        public string getNom()
+        {
+            return Nom;
+        }
+        public string getMarque()
+        {
+            return Marque;
+        }
     }
 }
