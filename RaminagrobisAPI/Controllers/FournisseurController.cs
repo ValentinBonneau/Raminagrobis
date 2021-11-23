@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Raminagrobis.DAL;
 using RaminagrobisAPI.Models;
+using RaminagrobisAPI.Tampon;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,15 +32,16 @@ namespace RaminagrobisAPI.Controllers
 
         // POST api/<FournisseurController>
         [HttpPost]
-        public void Post([FromBody] Fournisseur_DAL json)
+        public void Post([FromBody] FournisseurTemp fournisseur)
         {
-            Fournisseurs.Insert(json);
+            Fournisseurs.Insert(fournisseur);
         }
 
         // PUT api/<FournisseurController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] FournisseurTemp fournisseur)
         {
+            //Fournisseurs.
         }
 
         // DELETE api/<FournisseurController>/5
