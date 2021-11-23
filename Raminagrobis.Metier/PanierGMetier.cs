@@ -12,45 +12,20 @@ namespace Raminagrobis.Metier
     {
         public int ID { get; private set; }
         public DateTime Date { get; private set; }
-        List<LignePanierGMetier> lignesG;
+        public List<LignePanierG_DAL> lignesG { get; private set; }
 
         public PanierGMetier(int id,  DateTime date, List<LignePanierGMetier> ligneG)
         {
             ID = id;
             Date = date;
-            lignesG = ligneG;
+            lignesG = lignesG;
         }
-        public PanierGMetier(List<PanierMetier> paniers)
+       
+        public void Insert()
         {
-            foreach 
-            (var panier in paniers)
-            {
-               
-                foreach (var item in panier.lignes)
-                {
-                    try
-                    {
-                        getLigneByRef(item.refs).Quantite += item.Quantite;
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-                    ajouterLigneG(item.Quantite, item.refs);
-                }
-            }
-        }
-
-        public void ajouterLigneG(int quantite, string refs)
-        {
-            LignePanierGMetier ligneG = new LignePanierGMetier(ID, quantite, refs );
-            lignesG.Add(ligneG);
-        }
-        public LignePanierGMetier getLigneByRef(string reference)
-        {
-            var ligne = lignesG.Where(ligne => ligne.refs == reference);
-            return ligne.First();
+            PanierGlobal_DAL panierG = new PanierGlobal_DAL(ID, Date, lignesG);
+            PanierGlobalDepot_DAL panierGD = new PanierGlobalDepot_DAL();
+            panierGD.Insert(panierG);
         }
     }
 }
