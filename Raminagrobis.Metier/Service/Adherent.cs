@@ -13,39 +13,21 @@ namespace Raminagrobis.Metier.Service
 {
     public class Adherent
     {
-        public static List<AdherentTemp> GetAll()
+        public static List<AdherentMetier> GetAll()
         {
-            var result = new List<AdherentTemp>();
+            var result = new List<AdherentMetier>();
             var depot = new Adherent_Depot_DAL();
             foreach (var item in depot.GetAll())
             {
-                result.Add(new AdherentTemp()
-                {
-                    Nom = item.Nom,
-                    NomC = item.NomC,
-                    PrenomC = item.PrenomC,
-                    SexeC = item.SexeC,
-                    Adresse = item.Adresse,
-                    DateA = item.DateA,
-                    Email = item.Email
-                });
+                result.Add(new AdherentMetier(item.ID,item.Nom,item.NomC,item.PrenomC,item.SexeC,item.Email,item.Adresse));
             }
             return result;
         }
-        public static AdherentTemp GetByID(int id)
+        public static AdherentMetier GetByID(int id)
         {
             var depot = new Adherent_Depot_DAL();
             var adherent = depot.GetByID(id);
-            return new AdherentTemp()
-                {
-                    Nom = adherent.Nom,
-                    NomC = adherent.NomC,
-                    PrenomC = adherent.PrenomC,
-                    SexeC = adherent.SexeC,
-                    Adresse = adherent.Adresse,
-                    DateA = adherent.DateA,
-                    Email = adherent.Email
-                };
+            return new AdherentMetier(adherent.ID, adherent.Nom, adherent.NomC, adherent.PrenomC, adherent.SexeC, adherent.Email, adherent.Adresse);
         }
 
         public static void Insert(AdherentTemp input)

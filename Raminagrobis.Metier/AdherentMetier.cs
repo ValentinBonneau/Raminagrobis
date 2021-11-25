@@ -9,7 +9,7 @@ using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {
-    class AdherentMetier
+    public class AdherentMetier
     {
         public int ID { get; private set; }
         public string Nom { get; private set; }
@@ -34,6 +34,18 @@ namespace Raminagrobis.Metier
             Email = email;
             Adresse = adresse;
 
+        }
+        public AdherentMetier(int id, string nom, string nomC, string prenomC, string sexeC, string email, string adresse, DateTime date)
+
+        {
+            ID = id;
+            Nom = nom;
+            NomC = nomC;
+            PrenomC = prenomC;
+            SexeC = sexeC;
+            Email = email;
+            Adresse = adresse;
+            Date = date;
         }
 
         public void Insert()

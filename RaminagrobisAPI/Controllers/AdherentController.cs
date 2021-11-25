@@ -15,14 +15,38 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet]
         public IEnumerable<AdherentTemp> Get()
         {
-            return Adherent.GetAll();
+            var result = new List<AdherentTemp>();
+            var ads = Adherent.GetAll();
+            foreach (var adherent in ads)
+            {
+                result.Add(new AdherentTemp() {
+                    Nom = adherent.Nom,
+                    NomC = adherent.NomC,
+                    PrenomC = adherent.PrenomC,
+                    SexeC = adherent.SexeC,
+                    Adresse = adherent.Adresse,
+                    DateA = adherent.Date,
+                    Email = adherent.Email
+                });
+            }
+            return result;
         }
 
         // GET api/<AdherentController>/5
         [HttpGet("{id}")]
         public AdherentTemp Get(int id)
         {
-            return Adherent.GetByID(id);
+            var adherent = Adherent.GetByID(id);
+            return new AdherentTemp()
+            {
+                Nom = adherent.Nom,
+                NomC = adherent.NomC,
+                PrenomC = adherent.PrenomC,
+                SexeC = adherent.SexeC,
+                Adresse = adherent.Adresse,
+                DateA = adherent.Date,
+                Email = adherent.Email
+            };
         }
 
         // POST api/<AdherentController>
