@@ -18,15 +18,39 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet]
         public IEnumerable<FournisseurTemp> Get()
         {
-            
-            return Fournisseurs.GetAll();
+            var result = new List<FournisseurTemp>();
+            var fours = Fournisseurs.GetAll();
+            foreach (var fournisseur in fours)
+            {
+                result.Add(new FournisseurTemp()
+                {
+                    ID = fournisseur.ID,
+                    Nom = fournisseur.Nom,
+                    NomC = fournisseur.NomC,
+                    PrenomC = fournisseur.PrenomC,
+                    Adresse = fournisseur.Adresse,
+                    Email = fournisseur.Email,
+                    SexeC = fournisseur.SexeC
+                });
+            }
+            return result;
         }
 
         // GET api/<FournisseurController>/5
         [HttpGet("{id}")]
         public FournisseurTemp Get(int id)
         {
-            return Fournisseurs.GetByID(id);
+            var fournisseur = Fournisseurs.GetByID(id);
+            return new FournisseurTemp()
+            {
+                ID = fournisseur.ID,
+                Nom = fournisseur.Nom,
+                NomC = fournisseur.NomC,
+                PrenomC = fournisseur.PrenomC,
+                Adresse = fournisseur.Adresse,
+                Email = fournisseur.Email,
+                SexeC = fournisseur.SexeC
+            };
         }
 
         // POST api/<FournisseurController>

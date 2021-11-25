@@ -7,7 +7,7 @@ namespace RaminagrobisDTO
 {
     public class AdherentTemp
     {
-        public String? ID { get; set; }
+        public int? ID { get; set; }
         public String Nom { get; set; }
         public String PrenomC { get; set; }
         public String NomC { get; set; }

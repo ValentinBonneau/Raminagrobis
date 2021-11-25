@@ -25,7 +25,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetBoolean(4),
+                                        reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6)
                                         ); ;
@@ -55,7 +55,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetBoolean(4),
+                                        reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6)
                                         );
@@ -87,7 +87,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(1),
                                         reader.GetString(2),
                                         reader.GetString(3),
-                                        reader.GetBoolean(4),
+                                        reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6));
 

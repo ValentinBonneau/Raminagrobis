@@ -8,6 +8,7 @@ namespace Raminagrobis.Metier
 {
     public class FournisseurMetier
     {
+        public int ID { get; private set; }
         public string Nom { get; private set; }
         public string NomC { get; private set; }
         public string PrenomC { get; private set; }
@@ -18,6 +19,18 @@ namespace Raminagrobis.Metier
         public List<ReferenceMetier> Refs { get; private set; }
         public FournisseurMetier(string nom, string nomC, string prenomC, string sexeC, string email, string adresse)
         {
+            Nom = nom;
+            NomC = nomC;
+            PrenomC = prenomC;
+            SexeC = sexeC;
+            Email = email;
+            Adresse = adresse;
+            Refs = new List<ReferenceMetier>();
+        }
+
+        public FournisseurMetier(int id,string nom, string nomC, string prenomC, string sexeC, string email, string adresse)
+        {
+            ID = id;
             Nom = nom;
             NomC = nomC;
             PrenomC = prenomC;

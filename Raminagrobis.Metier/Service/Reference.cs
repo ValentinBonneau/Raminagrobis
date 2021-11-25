@@ -14,43 +14,34 @@ namespace Raminagrobis.Metier.Service
 {
     public class Reference
     {
-        public static List<ReferenceTemp> GetAll()
+        public static List<ReferenceMetier> GetAll()
         {
-            var result = new List<ReferenceTemp>();
+            var result = new List<ReferenceMetier>();
             var depot = new ReferenceDepot_DAL();
             foreach (var item in depot.GetAll())
             {
-                result.Add(new ReferenceTemp()
-                {
-                    Marque = item.Marque,
-                    Nom = item.Nom,
-                    Reference = item.Reference
-                }) ;
+                result.Add(new ReferenceMetier(item.ID, item.Reference,item.Nom,item.Marque));
             }
             return result;
         }
-        public static ReferenceTemp GetByID(int id)
+        public static ReferenceMetier GetByID(int id)
         {
             var depot = new ReferenceDepot_DAL();
             var reference = depot.GetByID(id);
-            return new ReferenceTemp()
-            {
-                Marque = reference.Marque,
-                Nom = reference.Nom,
-                Reference = reference.Reference
-            };
+            return new ReferenceMetier(reference.ID, reference.Reference, reference.Nom, reference.Marque);
         }
 
         public static void Insert(ReferenceTemp input)
         {
-            var Reference = new Reference_DAL(input.Reference, input.Nom, input.Marque);
+            var reference = new Reference_DAL(input.ReferenceO, input.Nom, input.Marque);
             var depot = new ReferenceDepot_DAL();
-            depot.Insert(Reference);
+            input.ID = depot.Insert(reference).ID;
+            
         }
 
         public static void Edit(int id, ReferenceTemp input)
         {
-            var Reference = new Reference_DAL(id, input.Reference, input.Nom, input.Marque);
+            var Reference = new Reference_DAL(id, input.ReferenceO, input.Nom, input.Marque);
             var depot = new ReferenceDepot_DAL();
             depot.Update(Reference);
         }
@@ -61,6 +52,18 @@ namespace Raminagrobis.Metier.Service
             ReferenceDepot_DAL depot = new ReferenceDepot_DAL();
             Reference = depot.GetByID(id);
             depot.Delete(Reference);
+        }
+
+        public static void DeleteAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void MatchWithFournisseur(ReferenceTemp reference, int idFournisseur)
+        {
+            var depotAsso = new AssoRefFourDepot_DAL();
+            var asso = new AssoRefFourn_DAL((int)reference.ID, idFournisseur);
+            depotAsso.Insert(asso);
         }
     }
 }

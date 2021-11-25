@@ -76,18 +76,30 @@ namespace Raminagrobis.DAL.Depot
         public override Reference_DAL Insert(Reference_DAL item)
         {
             CreerConnexionEtCommande();
-
-            commande.CommandText = "insert into Reference(ref, nom, marque)" + " values (@ref, @nom, @marque); select scope_identity()";
+            var dejaPresent = false;
+            commande.CommandText = "select id from Reference where ref = @ref and nom = @nom and marque = @marque ";
             commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
-            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
-
-            item.ID = id;
-
-
+            var reader = commande.ExecuteReader();
+            if (reader.Read())
+            {
+                item.ID = reader.GetInt32(0);
+            }
             DetruireConnexionEtCommande();
+            if (!dejaPresent)
+            {
+                CreerConnexionEtCommande();
+                commande.CommandText = "insert into Reference(ref, nom, marque)" + " values (@ref, @nom, @marque); select scope_identity()";
+                commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
+                commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
+                commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
+                var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
+                item.ID = id;
+
+                DetruireConnexionEtCommande();
+            }
             return item;
         }
 

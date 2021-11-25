@@ -20,6 +20,7 @@ namespace RaminagrobisAPI.Controllers
             foreach (var adherent in ads)
             {
                 result.Add(new AdherentTemp() {
+                    ID = adherent.ID,
                     Nom = adherent.Nom,
                     NomC = adherent.NomC,
                     PrenomC = adherent.PrenomC,
@@ -39,6 +40,7 @@ namespace RaminagrobisAPI.Controllers
             var adherent = Adherent.GetByID(id);
             return new AdherentTemp()
             {
+                ID = adherent.ID,
                 Nom = adherent.Nom,
                 NomC = adherent.NomC,
                 PrenomC = adherent.PrenomC,

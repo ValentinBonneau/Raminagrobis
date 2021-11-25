@@ -7,7 +7,8 @@ namespace RaminagrobisDTO
 {
     public class ReferenceTemp
     {
-        public String Reference { get; set; }
+        public int? ID { get; set; }
+        public String ReferenceO { get; set; }
         public String Nom { get; set; }
         public String Marque { get; set; }
     }

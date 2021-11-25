@@ -12,36 +12,21 @@ namespace Raminagrobis.Metier.Service
 {
     public class Fournisseurs
     {
-        public static List<FournisseurTemp> GetAll()
+        public static List<FournisseurMetier> GetAll()
         {
-            var result = new List<FournisseurTemp>();
+            var result = new List<FournisseurMetier>();
             var depot = new FournisseurDepot_DAL();
             foreach (var item in depot.GetAll())
             {
-                result.Add(new FournisseurTemp() {
-                    Nom = item.Nom,
-                    NomC = item.NomC,
-                    PrenomC = item.PrenomC,
-                    Adresse = item.Adresse, 
-                    Email = item.Email,
-                    SexeC = item.SexeC 
-                });    
+                result.Add(new FournisseurMetier(item.ID,item.Nom,item.NomC,item.PrenomC,item.SexeC,item.Email,item.Adresse));    
             }
             return result;
         }
-        public static FournisseurTemp GetByID(int id)
+        public static FournisseurMetier GetByID(int id)
         {
             var depot = new FournisseurDepot_DAL();
-            var fournisseur = depot.GetByID(id);
-            return new FournisseurTemp()
-            {
-                Nom = fournisseur.Nom,
-                NomC = fournisseur.NomC,
-                PrenomC = fournisseur.PrenomC,
-                Adresse = fournisseur.Adresse,
-                Email = fournisseur.Email,
-                SexeC = fournisseur.SexeC
-            };
+            var item = depot.GetByID(id);
+            return new FournisseurMetier(item.ID, item.Nom, item.NomC, item.PrenomC, item.SexeC, item.Email, item.Adresse);
         }
 
         public static void Insert(FournisseurTemp input)
