@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using RaminagrobisAPI.Models;
-using RaminagrobisAPI.Tampon;
+using Raminagrobis.Metier.Service;
+using RaminagrobisDTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,14 +13,14 @@ namespace RaminagrobisAPI.Controllers
     {
         // GET: api/<AdherentController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<AdherentTemp> Get()
         {
             return Adherent.GetAll();
         }
 
         // GET api/<AdherentController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public AdherentTemp Get(int id)
         {
             return Adherent.GetByID(id);
         }

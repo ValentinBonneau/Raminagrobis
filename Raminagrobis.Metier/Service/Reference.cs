@@ -8,28 +8,37 @@ using Raminagrobis.DAL.Depot;
 using Raminagrobis.Metier;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using RaminagrobisAPI.Tampon;
+using RaminagrobisDTO;
 
-namespace RaminagrobisAPI.Models
+namespace Raminagrobis.Metier.Service
 {
     public class Reference
     {
-        public static List<string> GetAll()
+        public static List<ReferenceTemp> GetAll()
         {
-            var result = new List<string>();
+            var result = new List<ReferenceTemp>();
             var depot = new ReferenceDepot_DAL();
             foreach (var item in depot.GetAll())
             {
-                var temp = JsonSerializer.Serialize(item);
-                result.Add(temp);
+                result.Add(new ReferenceTemp()
+                {
+                    Marque = item.Marque,
+                    Nom = item.Nom,
+                    Reference = item.Reference
+                }) ;
             }
             return result;
         }
-        public static string GetByID(int id)
+        public static ReferenceTemp GetByID(int id)
         {
             var depot = new ReferenceDepot_DAL();
-            var Reference = depot.GetByID(id);
-            return JsonSerializer.Serialize(Reference);
+            var reference = depot.GetByID(id);
+            return new ReferenceTemp()
+            {
+                Marque = reference.Marque,
+                Nom = reference.Nom,
+                Reference = reference.Reference
+            };
         }
 
         public static void Insert(ReferenceTemp input)
@@ -39,14 +48,14 @@ namespace RaminagrobisAPI.Models
             depot.Insert(Reference);
         }
 
-        internal static void Edit(int id, ReferenceTemp input)
+        public static void Edit(int id, ReferenceTemp input)
         {
             var Reference = new Reference_DAL(id, input.Reference, input.Nom, input.Marque);
             var depot = new ReferenceDepot_DAL();
             depot.Update(Reference);
         }
 
-        internal static void Delete(int id)
+        public static void Delete(int id)
         {
             Reference_DAL Reference;
             ReferenceDepot_DAL depot = new ReferenceDepot_DAL();

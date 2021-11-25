@@ -6,30 +6,42 @@ using System.Threading.Tasks;
 using Raminagrobis.DAL;
 using Raminagrobis.DAL.Depot;
 using Raminagrobis.Metier;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using RaminagrobisAPI.Tampon;
+using RaminagrobisDTO;
 
-namespace RaminagrobisAPI.Models
+namespace Raminagrobis.Metier.Service
 {
     public class Fournisseurs
     {
-        public static List<string> GetAll()
+        public static List<FournisseurTemp> GetAll()
         {
-            var result = new List<string>();
+            var result = new List<FournisseurTemp>();
             var depot = new FournisseurDepot_DAL();
             foreach (var item in depot.GetAll())
             {
-                var temp = JsonSerializer.Serialize(item);
-                result.Add(temp);
+                result.Add(new FournisseurTemp() {
+                    Nom = item.Nom,
+                    NomC = item.NomC,
+                    PrenomC = item.PrenomC,
+                    Adresse = item.Adresse, 
+                    Email = item.Email,
+                    SexeC = item.SexeC 
+                });    
             }
             return result;
         }
-        public static string GetByID(int id)
+        public static FournisseurTemp GetByID(int id)
         {
             var depot = new FournisseurDepot_DAL();
             var fournisseur = depot.GetByID(id);
-            return JsonSerializer.Serialize(fournisseur);
+            return new FournisseurTemp()
+            {
+                Nom = fournisseur.Nom,
+                NomC = fournisseur.NomC,
+                PrenomC = fournisseur.PrenomC,
+                Adresse = fournisseur.Adresse,
+                Email = fournisseur.Email,
+                SexeC = fournisseur.SexeC
+            };
         }
 
         public static void Insert(FournisseurTemp input)
@@ -39,14 +51,14 @@ namespace RaminagrobisAPI.Models
             depot.Insert(fournisseur);
         }
 
-        internal static void Edit(int id, FournisseurTemp input)
+        public static void Edit(int id, FournisseurTemp input)
         {
             var fournisseur = new Fournisseur_DAL(id,input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse);
             var depot = new FournisseurDepot_DAL();
             depot.Update(fournisseur);
         }
 
-        internal static void Delete(int id)
+        public static void Delete(int id)
         {
             Fournisseur_DAL fournisseur;
             FournisseurDepot_DAL depot = new FournisseurDepot_DAL();

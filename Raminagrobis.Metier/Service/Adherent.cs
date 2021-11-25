@@ -7,29 +7,45 @@ using Raminagrobis.DAL.Depot;
 using Raminagrobis.Metier;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using RaminagrobisAPI.Tampon;
+using RaminagrobisDTO;
 
-namespace RaminagrobisAPI.Models
-
+namespace Raminagrobis.Metier.Service
 {
     public class Adherent
     {
-        public static List<string> GetAll()
+        public static List<AdherentTemp> GetAll()
         {
-            var result = new List<string>();
+            var result = new List<AdherentTemp>();
             var depot = new Adherent_Depot_DAL();
             foreach (var item in depot.GetAll())
             {
-                var temp = JsonSerializer.Serialize(item);
-                result.Add(temp);
+                result.Add(new AdherentTemp()
+                {
+                    Nom = item.Nom,
+                    NomC = item.NomC,
+                    PrenomC = item.PrenomC,
+                    SexeC = item.SexeC,
+                    Adresse = item.Adresse,
+                    DateA = item.DateA,
+                    Email = item.Email
+                });
             }
             return result;
         }
-        public static string GetByID(int id)
+        public static AdherentTemp GetByID(int id)
         {
             var depot = new Adherent_Depot_DAL();
-            var Adherent = depot.GetByID(id);
-            return JsonSerializer.Serialize(Adherent);
+            var adherent = depot.GetByID(id);
+            return new AdherentTemp()
+                {
+                    Nom = adherent.Nom,
+                    NomC = adherent.NomC,
+                    PrenomC = adherent.PrenomC,
+                    SexeC = adherent.SexeC,
+                    Adresse = adherent.Adresse,
+                    DateA = adherent.DateA,
+                    Email = adherent.Email
+                };
         }
 
         public static void Insert(AdherentTemp input)
@@ -39,13 +55,13 @@ namespace RaminagrobisAPI.Models
             depot.Insert(Adherent);
         }
 
-        internal static void Edit(int id, AdherentTemp input)
+        public static void Edit(int id, AdherentTemp input)
         {
             var Adherent = new Adherent_DAL(id, input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA);
             var depot = new Adherent_Depot_DAL();
             depot.Update(Adherent);
         }
-        internal static void Delete(int id)
+        public static void Delete(int id)
         {
             Adherent_DAL Adherent;
             Adherent_Depot_DAL depot = new Adherent_Depot_DAL();

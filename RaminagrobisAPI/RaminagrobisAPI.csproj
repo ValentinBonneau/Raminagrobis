@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Raminagrobis.DAL\Raminagrobis.DAL.csproj" />
     <ProjectReference Include="..\Raminagrobis.Metier\Raminagrobis.Metier.csproj" />
+    <ProjectReference Include="..\RaminagrobisDTO\RaminagrobisDTO.csproj" />
   </ItemGroup>
 
 </Project>
