@@ -8,7 +8,7 @@ using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {
-    class LignePanierMetier
+    public class LignePanierMetier
     {
         public string refs { get; private set; }
         public int Quantite { get; private set; }

@@ -9,7 +9,7 @@ using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {
-    class PanierMetier
+    public class PanierMetier
     {
         public int ID { get; private set; }
         public int IDAdherent { get; private set; }

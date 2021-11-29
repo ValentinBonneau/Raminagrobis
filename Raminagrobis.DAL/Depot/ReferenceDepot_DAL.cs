@@ -40,6 +40,39 @@ namespace Raminagrobis.DAL.Depot
 
         }
 
+        public Reference_DAL GetByRef(string refs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, ref, nom, marque from Reference where ref=@ref ";
+            commande.Parameters.Add(new SqlParameter("@ref", refs));
+            var reader = commande.ExecuteReader();
+
+            var depotFour = new FournisseurDepot_DAL();
+
+            Reference_DAL reponse;
+
+            if (reader.Read())
+            {
+                var Four = depotFour.GetAllByIDRef(reader.GetInt32(0));
+
+                reponse = new Reference_DAL(reader.GetInt32(0),
+                                        reader.GetString(1),
+                                        reader.GetString(2),
+                                        reader.GetString(3),
+                                        Four
+                                        );
+            }
+            else
+            {
+                throw new Exception($"Pas de Reference à l'id {refs}");
+            }
+
+            DetruireConnexionEtCommande();
+
+            return reponse;
+        }
+
         public override Reference_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();

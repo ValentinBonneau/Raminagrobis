@@ -31,6 +31,13 @@ namespace Raminagrobis.Metier.Service
             return new ReferenceMetier(reference.ID, reference.Reference, reference.Nom, reference.Marque);
         }
 
+        public static ReferenceMetier GetByRef(string refs)
+        {
+            var depot = new ReferenceDepot_DAL();
+            var reference = depot.GetByRef(refs);
+            return new ReferenceMetier(reference.ID, reference.Reference, reference.Nom, reference.Marque);
+        }
+
         public static void Insert(ReferenceTemp input)
         {
             var reference = new Reference_DAL(input.ReferenceO, input.Nom, input.Marque);

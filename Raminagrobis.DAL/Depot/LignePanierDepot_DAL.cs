@@ -66,15 +66,15 @@ namespace Raminagrobis.DAL.Depot
 
         public override LignePanier_DAL Insert(LignePanier_DAL item)
         {
+            var refDepot = new ReferenceDepot_DAL();
+            var idRef = refDepot.GetByRef(item.Ref).ID;
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into LignePanier(idRef, quantite, idPanier)" + " values (@idRef, @quantite, @idPanier); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
+            commande.Parameters.Add(new SqlParameter("@idRef", idRef));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
             commande.Parameters.Add(new SqlParameter("@idPanier", item.IDPanier));
-            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
-
-            item.ID = id;
+            item.ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
 
             DetruireConnexionEtCommande();
