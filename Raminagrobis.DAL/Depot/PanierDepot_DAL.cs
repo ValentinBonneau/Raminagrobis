@@ -32,7 +32,29 @@ namespace Raminagrobis.DAL.Depot
             return listeDePanier;
 
         }
+        public List<Panier_DAL> GetByIDPanierG(int idPanierG)
+        {
+            CreerConnexionEtCommande();
 
+            commande.CommandText = "select id, idAdherent, idPanierG from Panier Where idPanierG = @idPanierG";
+            commande.Parameters.Add(new SqlParameter("@idPanierG", idPanierG));
+            var reader = commande.ExecuteReader();
+
+            var listeDePanier = new List<Panier_DAL>();
+
+            while (reader.Read())
+            {
+                var p = new Panier_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1)
+                                         ); ;
+
+                listeDePanier.Add(p);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDePanier;
+        }
         public override Panier_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();

@@ -12,7 +12,7 @@ using Raminagrobis.Metier.Service;
 
 namespace RaminagrobisAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("panier")]
     [ApiController]
     public class PanierController : ControllerBase
     {
@@ -24,10 +24,25 @@ namespace RaminagrobisAPI.Controllers
         }
 
         // GET api/<PanierController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("/Global/{semaine}")]
+        public PanierGlobalTemp Get(DateTime semaine)
         {
-            return "value";
+            var pannier = PanierG.GetByDate(semaine);
+            var lignes = new List<LignePanierGlobalTemp>();
+            foreach (var item in pannier.LignesG)
+            {
+                lignes.Add(new LignePanierGlobalTemp()
+                {
+                    Quantite = item.Quantite,
+                    Reference = item.refs,
+                    ID = item.ID
+                });
+            }
+            return new PanierGlobalTemp() {
+                ID = pannier.ID,
+                Date = pannier.Date,
+                LignesG = lignes
+            };
         }
 
         // POST api/<PanierController>
@@ -51,19 +66,7 @@ namespace RaminagrobisAPI.Controllers
                 }
             }
             Panier.Insert(panier, idAdherent);
-        }
-        // PUT api/<PanierController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-
-        }
-
-        // DELETE api/<PanierController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
+            
         }
     }
 }

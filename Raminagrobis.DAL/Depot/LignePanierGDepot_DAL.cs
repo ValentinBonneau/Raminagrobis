@@ -22,7 +22,7 @@ namespace Raminagrobis.DAL.Depot
             {
                 var p = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetString(2),
+                                        reader.GetInt32(2),
                                         reader.GetInt32(3)
                                          );
 
@@ -34,7 +34,26 @@ namespace Raminagrobis.DAL.Depot
             return listeDeLigne;
 
         }
+        public List<LignePanierG_DAL> GetByIDPanierG(int IDPanierG)
+        {
+            var reponse = new List<LignePanierG_DAL>();
+            CreerConnexionEtCommande();
+            commande.CommandText = "Select id, idPanierG, idRef, quantite from LignePanierG Where idPanierG = @idPanierG";
+            commande.Parameters.Add(new SqlParameter("@idPanierG", IDPanierG));
+            var reader = commande.ExecuteReader();
+            while (reader.Read())
+            {
+                var p = new LignePanierG_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
+                                         );
 
+                reponse.Add(p);
+            }
+            DetruireConnexionEtCommande();
+            return reponse;
+        }
         public override LignePanierG_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
@@ -50,7 +69,7 @@ namespace Raminagrobis.DAL.Depot
             {
                 reponse = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetString(2),
+                                        reader.GetInt32(2),
                                         reader.GetInt32(3)
                                         ); ;
             }
@@ -69,7 +88,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into LignePanierG(idPanierG, idRef, quantite)" + " values (@idPanierG, @idRef, @Quantite); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
             commande.Parameters.Add(new SqlParameter("@Quantite", item.Quantite));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
@@ -87,7 +106,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "update LignePanierG SET idPanierG=@idPanierG, idRef=@idRef, quantite=@quantite where id = @id";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
 
@@ -111,13 +130,26 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from LignePanierG where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
+            
 
 
             if (commande.ExecuteNonQuery() == 0)
             {
                 throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table LignePanierG");
             }
+            DetruireConnexionEtCommande();
+        }
+
+        public void DeleteAllWithPanierG(int idPanierG)
+        {
+            CreerConnexionEtCommande();
+            commande.CommandText = "delete from LignePanierG where idPanierG = @idPanierG";
+            commande.Parameters.Add(new SqlParameter("@ID", idPanierG));
+            if (commande.ExecuteNonQuery() == 0)
+            {
+                throw new NoEntryException($"Aucune occurance à l'ID de panier {idPanierG}", Tables.LignePanier);
+            }
+
             DetruireConnexionEtCommande();
         }
     }

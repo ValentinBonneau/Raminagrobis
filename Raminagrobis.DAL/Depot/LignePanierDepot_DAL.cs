@@ -21,7 +21,7 @@ namespace Raminagrobis.DAL.Depot
             while (reader.Read())
             {
                 var p = new LignePanier_DAL(reader.GetInt32(0),
-                                        reader.GetString(1),
+                                        reader.GetInt32(1),
                                         reader.GetInt32(2),
                                         reader.GetInt32(3)
                                          );
@@ -34,7 +34,32 @@ namespace Raminagrobis.DAL.Depot
             return listeDeLigne;
 
         }
+        public List<LignePanier_DAL> GetBYIDPanier(int idPanier)
+        {
+            CreerConnexionEtCommande();
 
+            commande.CommandText = "select id, idRef, quantite, idPanier from LignePanier where idPanier = @idPanier";
+            commande.Parameters.Add(new SqlParameter("@idPanier", idPanier));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLigne = new List<LignePanier_DAL>();
+
+            while (reader.Read())
+            {
+                var p = new LignePanier_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
+                                         );
+
+                listeDeLigne.Add(p);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLigne;
+
+        }
         public override LignePanier_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
@@ -49,7 +74,7 @@ namespace Raminagrobis.DAL.Depot
             if (reader.Read())
             {
                 reponse = new LignePanier_DAL(reader.GetInt32(0),
-                                        reader.GetString(1),
+                                        reader.GetInt32(1),
                                         reader.GetInt32(2),
                                         reader.GetInt32(3)
                                         ); ;
@@ -66,12 +91,10 @@ namespace Raminagrobis.DAL.Depot
 
         public override LignePanier_DAL Insert(LignePanier_DAL item)
         {
-            var refDepot = new ReferenceDepot_DAL();
-            var idRef = refDepot.GetByRef(item.Ref).ID;
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into LignePanier(idRef, quantite, idPanier)" + " values (@idRef, @quantite, @idPanier); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idRef", idRef));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IdRef));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
             commande.Parameters.Add(new SqlParameter("@idPanier", item.IDPanier));
             item.ID = Convert.ToInt32((decimal)commande.ExecuteScalar());
@@ -87,7 +110,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "update LignePanier SET idRef=@idRef, quantite = @quantite, idPanier = @idPanier where id = @id";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IdRef));
             commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
             commande.Parameters.Add(new SqlParameter("@idPanier", item.IDPanier));
 
