@@ -12,7 +12,7 @@ using Raminagrobis.Metier.Service;
 
 namespace RaminagrobisAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("panier")]
     [ApiController]
     public class PanierController : ControllerBase
     {

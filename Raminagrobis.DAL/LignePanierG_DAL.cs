@@ -20,6 +20,8 @@ namespace Raminagrobis.DAL
             => (ID, IDPanierG, Ref, Quantite) = (id, idPanierG, reference, quantite);
         public LignePanierG_DAL(int idPanierG, string reference, int quantite)
             => (IDPanierG, Ref, Quantite) = (idPanierG, reference, quantite);
+        public LignePanierG_DAL(string reference, int quantite)
+            => (Ref, Quantite) = (reference, quantite);
         public LignePanierG_DAL(int id, PanierGlobal_DAL panG, Reference_DAL references)
            => (ID, PanG, Refs, IDPanierG, Ref) = (id, panG, references, panG.ID, references.ID.ToString());
 
