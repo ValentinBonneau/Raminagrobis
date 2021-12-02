@@ -49,6 +49,10 @@ namespace RaminagrobisWPF
         {
             Main.Content = new Adherent();
         }
+        private void BtnClickPanier(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new Panier();
+        }
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {

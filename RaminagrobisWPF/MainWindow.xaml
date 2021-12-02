@@ -15,9 +15,10 @@
             <Button Content="Reference" MinWidth="100" Click="BtnClickRef"/>
             <Button Content="Adherent" MinWidth="100" Margin="10,0,0,0" Click="BtnClickAdh"/>
             <Button Content="Fournisseur" MinWidth="100" Margin="10,0,0,0" Click="BtnClickFournisseur"/>
+            <Button Content="Panier" MinWidth="100" Margin="10,0,0,0" Click="BtnClickPanier"/>
         </StackPanel>
         
-        <Frame x:Name="Main" Margin="0,35,0,35" />
+        <Frame x:Name="Main" Margin="0,35,0,35" NavigationUIVisibility="Hidden"/>
 
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35">
             <Button Content="Ajouter" MinWidth="100" Click="Ajouter_Click"/>
