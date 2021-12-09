@@ -1,4 +1,5 @@
 ﻿using Raminagrobis.API.Client;
+using RaminagrobisDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,36 +19,34 @@ using System.Windows.Shapes;
 namespace RaminagrobisWPF
 {
     /// <summary>
-    /// Logique d'interaction pour Reference.xaml
+    /// Logique d'interaction pour modifReference.xaml
     /// </summary>
-    public partial class Reference : Page
+    public partial class modifReference : Page
     {
-        public Reference()
+        public modifReference(ReferenceTemp reference)
         {
             InitializeComponent();
-            
+            this.id.Text = reference.ID.ToString();
+            this.refs.Text = reference.ReferenceO;
+            this.nom.Text = reference.Nom;
+            this.marque.Text = reference.Marque;
         }
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Ca serait mieux de mettre l'URL dans un fichier de config plutôt qu'en dur ici
             var clientApi = new Client("https://localhost:44355/", new HttpClient());
 
-            //le async et le await c'est de la programmation asynchrone en C#
-            var adherent = await clientApi.AdherentAllAsync();
-            var fournisseur = await clientApi.FournisseursAllAsync();
-            var reference = await clientApi.ReferenceAllAsync();
-
-            liste.ItemsSource = reference;
-
-          
+            
             
         }
-        
 
-        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Modif(object sender, RoutedEventArgs e)
         {
-            LesFenetres.MainWindow.View_Button();
+            var clientApi = new Client("https://localhost:44355/", new HttpClient());
+
+            
         }
 
+        
     }
 }

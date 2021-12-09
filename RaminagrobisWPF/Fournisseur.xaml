@@ -12,7 +12,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="liste"/>
+        <DataGrid x:Name="liste" SelectionChanged="liste_SelectionChanged"/>
         <!--
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35">
             <Button Content="Ajouter" MinWidth="100" Click="BtnClickAjouter"/>
@@ -21,4 +21,6 @@
         </StackPanel>-->
         <Frame x:Name="Main" />
     </Grid>
+    
+
 </Page>

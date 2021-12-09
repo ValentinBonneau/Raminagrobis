@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RaminagrobisAPI\RaminagrobisAPI.csproj" />
+    <ProjectReference Include="..\RaminagrobisDTO\RaminagrobisDTO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

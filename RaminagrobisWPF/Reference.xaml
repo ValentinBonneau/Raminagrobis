@@ -12,6 +12,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="liste"/>
+        <DataGrid x:Name="liste" SelectionChanged="liste_SelectionChanged"/>
     </Grid>
 </Page>

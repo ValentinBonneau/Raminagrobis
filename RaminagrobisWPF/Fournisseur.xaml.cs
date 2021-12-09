@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 
 namespace RaminagrobisWPF
 {
-    
+
     public partial class Fournisseur : Page
     {
         public Fournisseur()
@@ -38,15 +38,9 @@ namespace RaminagrobisWPF
 
         }
 
-        private void BtnClickAjouter(object sender, RoutedEventArgs e)
+        private void liste_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Main.Content = new ajouterFournisseur();
-        }
-
-        private void BtnClickSup(object sender, RoutedEventArgs e)
-        {
-            Main.Content = new supprFournisseur();
-
+            LesFenetres.MainWindow.View_Button();
         }
     }
 }
