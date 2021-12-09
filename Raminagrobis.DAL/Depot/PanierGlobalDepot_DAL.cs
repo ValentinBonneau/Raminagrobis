@@ -32,6 +32,32 @@ namespace Raminagrobis.DAL.Depot
             return listeDePanierG;
 
         }
+        public PanierGlobal_DAL GetByDate(DateTime date)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, date from PanierGlobal where DATEPART(week,date)=DATEPART(week,@date) ";
+            commande.Parameters.Add(new SqlParameter("@date", date));
+            var reader = commande.ExecuteReader();
+
+
+            PanierGlobal_DAL reponse;
+
+            if (reader.Read())
+            {
+                reponse = new PanierGlobal_DAL(reader.GetInt32(0),
+                                        reader.GetDateTime(1)
+                                        ); ;
+            }
+            else
+            {
+                throw new NoEntryException($"Pas de PanierGlobal à la date {date}",Tables.PanierGlobal);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return reponse;
+        }
 
         public override PanierGlobal_DAL GetByID(int ID)
         {

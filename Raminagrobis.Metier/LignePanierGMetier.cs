@@ -8,23 +8,31 @@ using Raminagrobis.DAL.Depot;
 
 namespace Raminagrobis.Metier
 {
-    class LignePanierGMetier
+    public class LignePanierGMetier
     {
+        public int ID { get; set; }
         public int IDPanierG { get; private set; }
         public int Quantite { get; set; }
         public string refs { get; private set; } 
+        public int IDrefs { get; private set; }
 
-       public LignePanierGMetier(int idPanierG, int quantite, string reference)
+        public LignePanierGMetier(int id,int idPanierG, int quantite, string reference)
         {
+            ID = id;
             IDPanierG = idPanierG;
             Quantite = quantite;
             refs = reference;
+            var depot = new ReferenceDepot_DAL();
+            IDrefs = depot.GetByRef(refs).ID;
         }
-        public void Insert()
+        public LignePanierGMetier(int id, int idPanierG, int quantite, int idref)
         {
-            LignePanierG_DAL ligneG = new LignePanierG_DAL(IDPanierG, refs, Quantite);
-            LignePanierGDepot_DAL ligneGD = new LignePanierGDepot_DAL();
-            ligneGD.Insert(ligneG);
+            ID = id;
+            IDPanierG = idPanierG;
+            Quantite = quantite;
+            IDrefs = idref;
+            var depot = new ReferenceDepot_DAL();
+            refs = depot.GetByID(idref).Reference; 
         }
     }
 }
