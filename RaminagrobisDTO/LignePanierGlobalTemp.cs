@@ -8,8 +8,8 @@ namespace RaminagrobisDTO
 {
     public class LignePanierGlobalTemp
     {
-        public int? ID;
-        public string Reference;
-        public int Quantite;
+        public int? ID { get; set; }
+        public string Reference { get; set; }
+        public int Quantite { get; set; }
     }
 }

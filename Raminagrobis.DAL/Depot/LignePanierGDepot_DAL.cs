@@ -83,6 +83,32 @@ namespace Raminagrobis.DAL.Depot
             return reponse;
         }
 
+        public List<LignePanierG_DAL> GetByIDFournisseur(int IDFournisseur,DateTime date)
+        {
+            var reponse = new List<LignePanierG_DAL>();
+            CreerConnexionEtCommande();
+            commande.CommandText = "Select lg.id, lg.idPanierG, lg.idRef, lg.quantite from LignePanierG lg " +
+                                    "JOIN Reference re ON lg.idRef = re.id " +
+                                    "JOIN AssoRefFournisseur asso ON asso.idRef = re.id " +
+                                    "JOIN PanierGlobal pg ON pg.id = lg.idPanierG " +
+                                    "WHERE asso.idFournisseur = @idFournisseur AND DATEPART(week,pg.date)=DATEPART(week,@date) ";
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", IDFournisseur));
+            commande.Parameters.Add(new SqlParameter("@date", date));
+            var reader = commande.ExecuteReader();
+            while (reader.Read())
+            {
+                var p = new LignePanierG_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
+                                         );
+
+                reponse.Add(p);
+            }
+            DetruireConnexionEtCommande();
+            return reponse;
+        }
+
         public override LignePanierG_DAL Insert(LignePanierG_DAL item)
         {
             CreerConnexionEtCommande();
@@ -130,7 +156,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from LignePanierG where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            
+
 
 
             if (commande.ExecuteNonQuery() == 0)
@@ -144,7 +170,7 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
             commande.CommandText = "delete from LignePanierG where idPanierG = @idPanierG";
-            commande.Parameters.Add(new SqlParameter("@ID", idPanierG));
+            commande.Parameters.Add(new SqlParameter("@idPanierG", idPanierG));
             if (commande.ExecuteNonQuery() == 0)
             {
                 throw new NoEntryException($"Aucune occurance à l'ID de panier {idPanierG}", Tables.LignePanier);
