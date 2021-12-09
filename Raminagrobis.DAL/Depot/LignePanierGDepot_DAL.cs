@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 
 namespace Raminagrobis.DAL.Depot
 {
-    public class LignePanierGGDepot_DAL : Depot_DAL<LignePanierG_DAL>
+    public class LignePanierGDepot_DAL : Depot_DAL<LignePanierG_DAL>
     {
         public override List<LignePanierG_DAL> GetAll()
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, idPanierG, idRef from LignePanierG";
+            commande.CommandText = "select id, idPanierG, idRef, quantite from LignePanierG";
             var reader = commande.ExecuteReader();
 
             var listeDeLigne = new List<LignePanierG_DAL>();
@@ -22,8 +22,8 @@ namespace Raminagrobis.DAL.Depot
             {
                 var p = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
-                                       
+                                        reader.GetString(2),
+                                        reader.GetInt32(3)
                                          );
 
                 listeDeLigne.Add(p);
@@ -39,7 +39,7 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, idPanierG, idRef from LignePanierG where id=@id ";
+            commande.CommandText = "select id, idPanierG, idRef, quantite from LignePanierG where id=@id ";
             commande.Parameters.Add(new SqlParameter("@id", ID));
             var reader = commande.ExecuteReader();
 
@@ -50,7 +50,8 @@ namespace Raminagrobis.DAL.Depot
             {
                 reponse = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
+                                        reader.GetString(2),
+                                        reader.GetInt32(3)
                                         ); ;
             }
             else
@@ -67,9 +68,10 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into LignePanierG(idPanierG, idRef)" + " values (@idPanierG, @idRef); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.CommandText = "insert into LignePanierG(idPanierG, idRef, quantite)" + " values (@idPanierG, @idRef, @Quantite); select scope_identity()";
+            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+            commande.Parameters.Add(new SqlParameter("@Quantite", item.Quantite));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
             item.ID = id;
@@ -84,9 +86,10 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update LignePanierG SET idLigneG=@idLigneG, idRef=@idRef where id = @id";
-            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.CommandText = "update LignePanierG SET idPanierG=@idPanierG, idRef=@idRef, quantite=@quantite where id = @id";
+            commande.Parameters.Add(new SqlParameter("@idRef", item.Ref));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+            commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
 
             commande.Parameters.Add(new SqlParameter("@id", item.ID));
 
@@ -119,4 +122,4 @@ namespace Raminagrobis.DAL.Depot
         }
     }
 }
-}
+
