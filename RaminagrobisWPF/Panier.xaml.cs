@@ -34,8 +34,6 @@ namespace RaminagrobisWPF
             var panier = await clientApi.PanierAllAsync();
 
             liste.ItemsSource = panier;
-
-
         }
     }
 }

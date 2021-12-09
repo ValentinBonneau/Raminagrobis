@@ -23,7 +23,7 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="35">
             <Button Content="Ajouter" MinWidth="100" Click="Ajouter_Click"/>
             <Button Content="Supprimer" MinWidth="100" Margin="10,0,0,0" Click="Delete_Click" />
-            <Button Content="Modifier" MinWidth="100" Margin="10,0,0,0"/>
+            <Button Name="modif" Content="Modifier" MinWidth="100" Margin="10,0,0,0" Visibility="Hidden" Click="Modif_Click"/>
         </StackPanel>
 
     </Grid>

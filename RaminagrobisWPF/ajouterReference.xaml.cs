@@ -45,16 +45,14 @@ namespace RaminagrobisWPF
         {
             var clientApi = new Client("https://localhost:44355/", new HttpClient());
 
-            AdherentTemp Adherent = new AdherentTemp();
-            Adherent.Nom = nom.Text;
-            Adherent.PrenomC = prenomC.Text;
-            Adherent.NomC = nomC.Text;
-            Adherent.SexeC = sexe.Text;
-            Adherent.Adresse = adresse.Text;
-            Adherent.Email = email.Text;
-            Adherent.DateA = date.DisplayDate;
+            ReferenceTemp Reference = new ReferenceTemp();
+            
+            Reference.ReferenceO = refs.Text;
+            Reference.Nom = nom.Text;
+            Reference.Marque = marque.Text;
 
-            clientApi.AdherentPOSTAsync(Adherent);
+
+            
         }
     }
 }
