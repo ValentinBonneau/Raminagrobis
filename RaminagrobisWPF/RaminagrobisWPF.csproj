@@ -6,4 +6,61 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RaminagrobisAPI\RaminagrobisAPI.csproj" />
+    <ProjectReference Include="..\RaminagrobisDTO\RaminagrobisDTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Adherent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ajouterReference.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ajouterAdherent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Fournisseur.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="supprAdherent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="supprReference.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Adherent.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ajouterReference.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ajouterAdherent.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Fournisseur.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="supprAdherent.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="supprReference.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

@@ -18,6 +18,7 @@ namespace Raminagrobis.DAL.Depot
             var reader = commande.ExecuteReader();
 
             var listeDeFournisseur = new List<Fournisseur_DAL>();
+               
 
             while (reader.Read())
             {
