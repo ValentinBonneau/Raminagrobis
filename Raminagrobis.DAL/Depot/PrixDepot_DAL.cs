@@ -22,7 +22,7 @@ namespace Raminagrobis.DAL.Depot
             {
                 var p = new Prix_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
+                                        reader.GetDouble(2)
                                          );
 
                 listeDeLigne.Add(p);
@@ -33,13 +33,41 @@ namespace Raminagrobis.DAL.Depot
             return listeDeLigne;
 
         }
+        public List<Prix_DAL> GetByIDPanierG(int idPanierG)
+        {
+            CreerConnexionEtCommande();
 
+            commande.CommandText = "select DISTINCT pr.idLignePanierG, pr.idFournisseur, pr.prix from Prix pr " +
+                                    "Join LignePanierG lg On lg.id = pr.idLignePanierG " +
+                                    "where lg.idPanierG = @idPanierG " +
+                                    "ORDER BY pr.prix DESC";
+            commande.Parameters.Add(new SqlParameter("@idPanierG", idPanierG));
+            var reader = commande.ExecuteReader();
+
+            var listeDeLigne = new List<Prix_DAL>();
+
+            while (reader.Read())
+            {
+                var p = new Prix_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetDouble(2)
+                                         );
+
+                listeDeLigne.Add(p);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return listeDeLigne;
+        }
         public override Prix_DAL GetByID(int idFournisseur)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select idLignePanierG, idFournisseur, prix from Prix where idFournisseur=@idFournisseur ";
+            commande.CommandText = "select idLignePanierG, idFournisseur, prix from Prix where idFournisseur=@idFournisseur";
             commande.Parameters.Add(new SqlParameter("@idFournisseur", idFournisseur));
+            
+
             var reader = commande.ExecuteReader();
 
 
@@ -49,7 +77,7 @@ namespace Raminagrobis.DAL.Depot
             {
                 reponse = new Prix_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
+                                        reader.GetDouble(2)
                                         ); ;
             }
             else
@@ -66,11 +94,11 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into Prix(idLignePanierG, idFournisseur, prix)" + " values (@idLignePanierG, @idFournisseur, @prix); select scope_identity()";
+            commande.CommandText = "insert into Prix(idLignePanierG, idFournisseur, prix)" + " values (@idLignePanierG, @idFournisseur, @prix)";
             commande.Parameters.Add(new SqlParameter("@idLignePanierG", item.IDLignePanierG));
             commande.Parameters.Add(new SqlParameter("@idFournisseur", item.IDFournisseur));
             commande.Parameters.Add(new SqlParameter("@prix", item.Prix));
-            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
+            commande.ExecuteNonQuery();
 
             
 

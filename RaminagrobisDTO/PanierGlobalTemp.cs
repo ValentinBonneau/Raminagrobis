@@ -13,6 +13,5 @@ namespace RaminagrobisDTO
         public int? ID { get; set; }
         public DateTime Date { get; set; }
         public IEnumerable<LignePanierGlobalTemp> LignesG { get; set; }
-        public List<LignePanierGlobalTemp> LignesG { get; set; }
     }
 }

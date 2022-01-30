@@ -42,12 +42,14 @@ namespace Raminagrobis.DAL.Depot
 
 
             PanierGlobal_DAL reponse;
+            var depotLigneG = new LignePanierGDepot_DAL();
 
             if (reader.Read())
             {
                 reponse = new PanierGlobal_DAL(reader.GetInt32(0),
-                                        reader.GetDateTime(1)
-                                        ); ;
+                                        reader.GetDateTime(1),
+                                        depotLigneG.GetByIDPanierG(reader.GetInt32(0))
+                                        );
             }
             else
             {
