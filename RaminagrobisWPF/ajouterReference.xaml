@@ -8,19 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ajouterReference" Loaded="Window_Loaded">
 
-    <Grid Background="White">
-
-        <TextBox Name="refs" HorizontalAlignment="Left" Margin="242,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
-        <TextBox Name="nom" HorizontalAlignment="Left" Margin="242,144,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
-        <TextBox Name="marque" HorizontalAlignment="Left" Margin="242,167,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
-
-        <TextBlock HorizontalAlignment="Left" Margin="180,121,0,0" TextWrapping="Wrap" Text="References :" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="180,144,0,0" TextWrapping="Wrap" Text="Nom :" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="180,167,0,0" TextWrapping="Wrap" Text="Marque :" VerticalAlignment="Top"/>
-        
-       
-        <Button Content="Valider" HorizontalAlignment="Left" Margin="371,200,0,0" VerticalAlignment="Top" Click="Button_Click" />
-        
-
+    <Grid Margin="0,0,0,0" >
+         
     </Grid>
 </Page>
