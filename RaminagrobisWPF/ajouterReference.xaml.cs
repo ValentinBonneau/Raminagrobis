@@ -15,6 +15,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using RaminagrobisDTO;
+using System.IO;
+using System.Collections.ObjectModel;
+using System.Net.Http.Handlers;
+using System.Windows.Threading;
+using Newtonsoft.Json;
+using System.Net.Http.Formatting;
 
 namespace RaminagrobisWPF
 {
@@ -40,19 +46,7 @@ namespace RaminagrobisWPF
 
 
         }
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var clientApi = new Client("https://localhost:44355/", new HttpClient());
-
-            ReferenceTemp Reference = new ReferenceTemp();
-            
-            Reference.ReferenceO = refs.Text;
-            Reference.Nom = nom.Text;
-            Reference.Marque = marque.Text;
-
-
-            
-        }
     }
 }

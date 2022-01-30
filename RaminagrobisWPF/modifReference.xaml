@@ -11,7 +11,7 @@
    
 
     <Grid Background="White">
-        <TextBox Name="id" HorizontalAlignment="Left" Margin="242,98,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
+        <TextBox Name="id" HorizontalAlignment="Left" Margin="242,98,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" IsEnabled="False"/>
         <TextBox Name="refs" HorizontalAlignment="Left" Margin="242,121,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
         <TextBox Name="nom" HorizontalAlignment="Left" Margin="242,144,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
         <TextBox Name="marque" HorizontalAlignment="Left" Margin="242,167,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="299" />
