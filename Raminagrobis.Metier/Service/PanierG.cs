@@ -12,7 +12,7 @@ namespace Raminagrobis.Metier.Service
     {
         public static PanierGMetier GetByDate(DateTime semaine)
         {
-            
+
             var depotPannierG = new PanierGlobalDepot_DAL();
             var depotLigneG = new LignePanierGDepot_DAL();
             var depotRef = new ReferenceDepot_DAL();
@@ -20,14 +20,14 @@ namespace Raminagrobis.Metier.Service
             var panier = depotPannierG.GetByDate(semaine);
             Update(panier.ID);
             var lignes = new List<LignePanierGMetier>();
-            
+
             foreach (var ligne in depotLigneG.GetByIDPanierG(panier.ID))
             {
 
-                lignes.Add(new LignePanierGMetier(ligne.ID,panier.ID,ligne.Quantite,depotRef.GetByID(ligne.IDRef).Reference));
-            } 
+                lignes.Add(new LignePanierGMetier(ligne.ID, panier.ID, ligne.Quantite, depotRef.GetByID(ligne.IDRef).Reference));
+            }
 
-            return new PanierGMetier(panier.ID,panier.Date,lignes);
+            return new PanierGMetier(panier.ID, panier.Date, lignes);
         }
         public static List<LignePanierGMetier> GetLigneByFournisseur(int IDfournisseur, DateTime semaine)
         {
@@ -61,12 +61,11 @@ namespace Raminagrobis.Metier.Service
             var depotLignePannier = new LignePanierDepot_DAL();
 
             var LignePanierGlobal = new Dictionary<int, int>();
-            
+
             foreach (var panier in depotPannier.GetByIDPanierG(id))
             {
                 foreach (var ligne in depotLignePannier.GetBYIDPanier(panier.ID))
                 {
-
                     if (LignePanierGlobal.Count(l => l.Key == ligne.IdRef) > 0)
                     {
                         LignePanierGlobal[ligne.IdRef] += ligne.Quantite;
@@ -80,18 +79,20 @@ namespace Raminagrobis.Metier.Service
 
             var depotLigneGlobal = new LignePanierGDepot_DAL();
 
-            try
-            {
-                depotLigneGlobal.DeleteAllWithPanierG(id);
-            }
-            catch (NoEntryException)
-            {
-                //en vrai c'est pas grave
-            }
+
+
             foreach (var ligne in LignePanierGlobal)
             {
                 var ligneDal = new LignePanierG_DAL(id, ligne.Key, ligne.Value);
-                depotLigneGlobal.Insert(ligneDal);
+                if (depotLigneGlobal.Exist(ligneDal))
+                {
+                    ligneDal.ID = depotLigneGlobal.GetByIDPanierG(ligneDal.IDPanierG).Where(l => l.IDRef == ligneDal.IDRef).First().ID;
+                    depotLigneGlobal.Update(ligneDal);
+                }
+                else
+                {
+                    depotLigneGlobal.Insert(ligneDal);
+                }
             }
         }
     }

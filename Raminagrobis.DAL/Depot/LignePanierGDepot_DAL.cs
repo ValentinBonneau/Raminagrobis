@@ -108,6 +108,19 @@ namespace Raminagrobis.DAL.Depot
             DetruireConnexionEtCommande();
             return reponse;
         }
+        public bool Exist(LignePanierG_DAL item)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "Select Count(*) FROM LignePanierG WHERE idPanierG = @idPanierG AND idRef = @idRef";
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+
+            var count = Convert.ToInt32(commande.ExecuteScalar());
+            DetruireConnexionEtCommande();
+
+            return count > 0;
+        }
 
         public override LignePanierG_DAL Insert(LignePanierG_DAL item)
         {

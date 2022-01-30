@@ -21,7 +21,8 @@ namespace Raminagrobis.DAL.Depot
             while (reader.Read())
             {
                 var p = new Panier_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1)                         
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2)
                                          ); ;
 
                 listeDePanier.Add(p);
@@ -34,8 +35,9 @@ namespace Raminagrobis.DAL.Depot
         }
         public List<Panier_DAL> GetByIDPanierG(int idPanierG)
         {
-            CreerConnexionEtCommande();
 
+            CreerConnexionEtCommande();
+            var depot = new LignePanierDepot_DAL();
             commande.CommandText = "select id, idAdherent, idPanierG from Panier Where idPanierG = @idPanierG";
             commande.Parameters.Add(new SqlParameter("@idPanierG", idPanierG));
             var reader = commande.ExecuteReader();
@@ -45,9 +47,9 @@ namespace Raminagrobis.DAL.Depot
             while (reader.Read())
             {
                 var p = new Panier_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1)
-                                         ); ;
-
+                                        reader.GetInt32(1),
+                                        idPanierG
+                                         );
                 listeDePanier.Add(p);
             }
 
@@ -55,6 +57,10 @@ namespace Raminagrobis.DAL.Depot
 
             return listeDePanier;
         }
+        public Panier_DAL GetbyIDAdherentNPanierG(int idAdherent, int idPanierG)
+        {
+            return this.GetByIDPanierG(idPanierG).Where(p => p.IDAdherent == idAdherent).First();
+        } 
         public override Panier_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
@@ -69,7 +75,8 @@ namespace Raminagrobis.DAL.Depot
             if (reader.Read())
             {
                 reponse = new Panier_DAL(reader.GetInt32(0),
-                                        reader.GetInt32(1)
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2)
                                         ); ;
             }
             else

@@ -14,9 +14,7 @@ namespace Raminagrobis.Metier
         public int ID { get; private set; }
         public int IDAdherent { get; private set; }
         public int IDPanierG { get; private set; }
-        public List<LignePanier_DAL> desLignes { get; private set; }
-
-        public List<LignePanierMetier> lignes { get; private set; }
+        public List<LignePanierMetier> Lignes { get; private set; }
 
 
         public PanierMetier(int id, int idAdherent, int idPanierG, List<LignePanierMetier> ligne)
@@ -25,11 +23,12 @@ namespace Raminagrobis.Metier
             ID = id;
             IDAdherent = idAdherent;
             IDPanierG = idPanierG;
-            lignes = ligne;
+            Lignes = ligne;
         }
-        public void Ajouter_Ligne(LignePanier_DAL ligne)
+
+        public void Ajouter_Ligne(LignePanierMetier ligne)
         {
-            desLignes.Add(ligne);
+            Lignes.Add(ligne);
         }
        
     }
