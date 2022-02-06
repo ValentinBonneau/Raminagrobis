@@ -11,6 +11,5 @@ namespace RaminagrobisDTO
         public int? ID { get; set; }
         public List<LignePanierTemp> Lignes { get; set; }
 
-
     }
 }

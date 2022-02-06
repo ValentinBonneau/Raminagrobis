@@ -19,7 +19,7 @@ namespace Raminagrobis.Metier.Service
             var depot = new Adherent_Depot_DAL();
             foreach (var item in depot.GetAll())
             {
-                result.Add(new AdherentMetier(item.ID,item.Nom,item.NomC,item.PrenomC,item.SexeC,item.Email,item.Adresse));
+                result.Add(new AdherentMetier(item.ID,item.Nom,item.NomC,item.PrenomC,item.SexeC,item.Email,item.Adresse,item.DateA));
             }
             return result;
         }
@@ -27,19 +27,19 @@ namespace Raminagrobis.Metier.Service
         {
             var depot = new Adherent_Depot_DAL();
             var adherent = depot.GetByID(id);
-            return new AdherentMetier(adherent.ID, adherent.Nom, adherent.NomC, adherent.PrenomC, adherent.SexeC, adherent.Email, adherent.Adresse);
+            return new AdherentMetier(adherent.ID, adherent.Nom, adherent.NomC, adherent.PrenomC, adherent.SexeC, adherent.Email, adherent.Adresse, adherent.DateA);
         }
 
         public static void Insert(AdherentTemp input)
         {
-            var Adherent = new Adherent_DAL(input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA);
+            var Adherent = new Adherent_DAL(input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA.ToLocalTime().DateTime);
             var depot = new Adherent_Depot_DAL();
             depot.Insert(Adherent);
         }
 
         public static void Edit(int id, AdherentTemp input)
         {
-            var Adherent = new Adherent_DAL(id, input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA);
+            var Adherent = new Adherent_DAL(id, input.Nom, input.PrenomC, input.NomC, input.SexeC, input.Email, input.Adresse, input.DateA.ToLocalTime().DateTime);
             var depot = new Adherent_Depot_DAL();
             depot.Update(Adherent);
         }

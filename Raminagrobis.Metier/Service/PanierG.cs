@@ -16,9 +16,16 @@ namespace Raminagrobis.Metier.Service
             var depotPannierG = new PanierGlobalDepot_DAL();
             var depotLigneG = new LignePanierGDepot_DAL();
             var depotRef = new ReferenceDepot_DAL();
-
-            var panier = depotPannierG.GetByDate(semaine);
-            Update(panier.ID);
+            PanierGlobal_DAL panier;
+            try
+            {
+                panier = depotPannierG.GetByDate(semaine);
+                Update(panier.ID);
+            }
+            catch (NoEntryException)
+            {
+                panier = new PanierGlobal_DAL(new List<LignePanierG_DAL>());
+            }
             var lignes = new List<LignePanierGMetier>();
 
             foreach (var ligne in depotLigneG.GetByIDPanierG(panier.ID))

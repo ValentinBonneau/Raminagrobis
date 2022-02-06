@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaminagrobisAPI", "Raminagr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaminagrobisDTO", "RaminagrobisDTO\RaminagrobisDTO.csproj", "{B6394AEE-72B7-4806-BA13-468ABC2E7C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaminagrobisWPF", "RaminagrobisWPF\RaminagrobisWPF.csproj", "{C848E0A3-47E8-420B-8942-C299330863AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaminagrobisWPF", "RaminagrobisWPF\RaminagrobisWPF.csproj", "{C848E0A3-47E8-420B-8942-C299330863AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raminagrobis.WPF2", "Raminagrobis.WPF2\Raminagrobis.WPF2.csproj", "{BB6B4BCE-3B6E-4266-B821-2A146B21493C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{C848E0A3-47E8-420B-8942-C299330863AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C848E0A3-47E8-420B-8942-C299330863AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C848E0A3-47E8-420B-8942-C299330863AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB6B4BCE-3B6E-4266-B821-2A146B21493C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB6B4BCE-3B6E-4266-B821-2A146B21493C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB6B4BCE-3B6E-4266-B821-2A146B21493C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB6B4BCE-3B6E-4266-B821-2A146B21493C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
