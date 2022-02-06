@@ -88,7 +88,46 @@ namespace Raminagrobis.DAL.Depot
 
             return reponse;
         }
+        public Panier_DAL Insert(Panier_DAL panier, DateTime semaine)
+        {
+            if (panier.IDPanierG == 0)
+            {
+                CreerConnexionEtCommande();
+                commande.CommandText =
+                "IF (Select Count(*) from PanierGlobal where DATEPART(week, (PanierGlobal.date)) = DATEPART(week, @semaine))=0  \n" +
+                "\tInsert into PanierGlobal(PanierGlobal.date) values(@semaine) \n" +
+                "Select id from PanierGlobal where DATEPART(week, (PanierGlobal.date)) = DATEPART(week, @semaine)";
+                commande.Parameters.Add(new SqlParameter("@semaine", semaine));
+                var reader = commande.ExecuteReader();
+                if (reader.Read())
+                {
+                    panier.IDPanierG = reader.GetInt32(0);
+                }
+                DetruireConnexionEtCommande();
+            }
 
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "insert into Panier (idAdherent, idPanierG)" + " values (@idAdherent, @idPanierG); select scope_identity()";
+            commande.Parameters.Add(new SqlParameter("@idAdherent", panier.IDAdherent));
+            commande.Parameters.Add(new SqlParameter("@idPanierG", panier.IDPanierG));
+
+            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
+
+            panier.ID = id;
+            var depotLigne = new LignePanierDepot_DAL();
+            foreach (var item in panier.Lignes)
+            {
+                item.IDPanier = id;
+                depotLigne.Insert(item);
+
+            }
+
+
+            DetruireConnexionEtCommande();
+
+            return panier;
+        }
         public override Panier_DAL Insert(Panier_DAL panier)
         {
 

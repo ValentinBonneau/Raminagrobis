@@ -43,7 +43,17 @@ namespace Raminagrobis.Metier.Service
             {
                 lignes.Add(new LignePanier_DAL(item.Ref, item.Quantite));
             }
-            var panier = new Panier_DAL(idAdherent,depotGlobal.GetByDate(semaine).ID,lignes);
+            Panier_DAL panier;
+            try
+            {
+                panier = new Panier_DAL(idAdherent, depotGlobal.GetByDate(semaine).ID, lignes);
+            }
+            catch (NoEntryException)
+            {
+                depotGlobal.Insert(new PanierGlobal_DAL() { Date = semaine });
+                panier = new Panier_DAL(idAdherent, depotGlobal.GetByDate(semaine).ID, lignes);
+            }
+                
             depot.Insert(panier);
         }
     }

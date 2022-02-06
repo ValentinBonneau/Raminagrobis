@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Raminagrobis.WPF2.ApiClient;
+using Raminagrobis.WPF2.Windows.Fournisseur;
 
 namespace Raminagrobis.WPF2.Pages.Fournisseur
 {
@@ -42,6 +43,17 @@ namespace Raminagrobis.WPF2.Pages.Fournisseur
             {
                 optionPage.Content = new OptionsPage(fourn);
             }
+        }
+
+        private void BtnNouveau_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new NouveauFournisseurWindow();
+            win.Show();
+        }
+
+        private async void Btnrefresh_Click(object sender, RoutedEventArgs e)
+        {
+            Liste.ItemsSource = await _api.ClientApi.FournisseursAllAsync();
         }
     }
 }

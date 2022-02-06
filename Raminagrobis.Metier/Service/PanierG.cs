@@ -25,6 +25,7 @@ namespace Raminagrobis.Metier.Service
             catch (NoEntryException)
             {
                 panier = new PanierGlobal_DAL(new List<LignePanierG_DAL>());
+                Update();
             }
             var lignes = new List<LignePanierGMetier>();
 

@@ -25,8 +25,8 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Frame BorderThickness="0" x:Name="optionPage" Grid.Row="0" NavigationUIVisibility="Hidden"/>
-            <Button x:Name="BtnNouveau"  Grid.Row="2" >Nouveau</Button>
-            <Button x:Name="Btnrefresh"  Grid.Row="4" >Rafraichir</Button>
+            <Button x:Name="BtnNouveau"  Grid.Row="2" Click="BtnNouveau_Click" >Nouveau</Button>
+            <Button x:Name="Btnrefresh"  Grid.Row="4" Click="Btnrefresh_Click" >Rafraichir</Button>
         </Grid>
     </Grid>
 </Page>

@@ -98,12 +98,16 @@ namespace Raminagrobis.DAL.Depot
 
             panierG.ID = id;
             var depotLigneG = new LignePanierGDepot_DAL();
-            foreach (var item in panierG.LignesG)
+            if(panierG.LignesG != null)
             {
-                item.IDPanierG = id;
-                depotLigneG.Insert(item);
+                foreach (var item in panierG.LignesG)
+                {
+                    item.IDPanierG = id;
+                    depotLigneG.Insert(item);
 
+                }
             }
+            
 
             DetruireConnexionEtCommande();
 
