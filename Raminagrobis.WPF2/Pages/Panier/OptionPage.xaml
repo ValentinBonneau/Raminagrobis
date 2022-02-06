@@ -23,8 +23,8 @@
         <TextBlock Grid.Row="1">Fournisseur:</TextBlock>
         <ComboBox Grid.Row="2" x:Name="FournisseurChoix" SelectionChanged="FournisseurChoix_SelectionChanged"></ComboBox>
         <Frame Grid.Row="3" x:Name="BoutonsPourFournisseur" NavigationUIVisibility="Hidden"></Frame>   
-        <TextBlock Grid.Row="6">Adherent:</TextBlock>
-        <ComboBox Grid.Row="7" x:Name="AdherentChoix" SelectionChanged="AdherentChoix_SelectionChanged"></ComboBox>
-        <Frame Grid.Row="8" x:Name="BoutonsPourAdherent" NavigationUIVisibility="Hidden"></Frame>
+        <TextBlock Grid.Row="5">Adherent:</TextBlock>
+        <ComboBox Grid.Row="6" x:Name="AdherentChoix" SelectionChanged="AdherentChoix_SelectionChanged"></ComboBox>
+        <Frame Grid.Row="7" x:Name="BoutonsPourAdherent" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Page>

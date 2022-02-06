@@ -33,7 +33,11 @@ namespace Raminagrobis.WPF2.Pages.Panier
 
         private void DownloadBtn_Click(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start($"{_api.ClientApi.BaseUrl.TrimEnd('/')}/Global/{Uri.EscapeDataString(_semaine.ToString("s", System.Globalization.CultureInfo.InvariantCulture))}/cloture/{_id}");
+            var url = $"{_api.ClientApi.BaseUrl.TrimEnd('/')}/Global/{Uri.EscapeDataString(_semaine.ToString("s", System.Globalization.CultureInfo.InvariantCulture))}/cloture/{_id}";
+            var psi = new System.Diagnostics.ProcessStartInfo();
+            psi.UseShellExecute = true;
+            psi.FileName = url;
+            System.Diagnostics.Process.Start(psi);
 
         }
     }
