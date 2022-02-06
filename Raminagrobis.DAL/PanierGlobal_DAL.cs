@@ -16,6 +16,7 @@ namespace Raminagrobis.DAL
             => (ID, Date, LignesG) = (id, date, desLignesG.ToList());
         public PanierGlobal_DAL(int id, DateTime date) => (ID, Date) = (id, date);
 
+
     }
 }
     

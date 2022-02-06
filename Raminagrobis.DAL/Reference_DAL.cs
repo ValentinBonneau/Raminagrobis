@@ -19,8 +19,11 @@ namespace Raminagrobis.DAL
 
         public Reference_DAL(int id, string reference, string nom, string marque, IEnumerable<Fournisseur_DAL> desFours)
             => (ID, Reference, Nom, Marque, Fours) = (id, reference, nom, marque, desFours.ToList());
+        public Reference_DAL(string reference, string nom, string marque)
+            => (Reference, Nom, Marque) = (reference, nom, marque);
+        public Reference_DAL(int id, string reference, string nom, string marque)
+            => (ID, Reference, Nom, Marque) = (id, reference, nom, marque);
 
-        
 
     }
 }

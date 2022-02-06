@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 
 namespace Raminagrobis.DAL.Depot
 {
-    public class LignePanierGGDepot_DAL : Depot_DAL<LignePanierG_DAL>
+    public class LignePanierGDepot_DAL : Depot_DAL<LignePanierG_DAL>
     {
         public override List<LignePanierG_DAL> GetAll()
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, idPanierG, idRef from LignePanierG";
+            commande.CommandText = "select id, idPanierG, idRef, quantite from LignePanierG";
             var reader = commande.ExecuteReader();
 
             var listeDeLigne = new List<LignePanierG_DAL>();
@@ -22,8 +22,8 @@ namespace Raminagrobis.DAL.Depot
             {
                 var p = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
-                                       
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
                                          );
 
                 listeDeLigne.Add(p);
@@ -34,12 +34,31 @@ namespace Raminagrobis.DAL.Depot
             return listeDeLigne;
 
         }
+        public List<LignePanierG_DAL> GetByIDPanierG(int IDPanierG)
+        {
+            var reponse = new List<LignePanierG_DAL>();
+            CreerConnexionEtCommande();
+            commande.CommandText = "Select id, idPanierG, idRef, quantite from LignePanierG Where idPanierG = @idPanierG";
+            commande.Parameters.Add(new SqlParameter("@idPanierG", IDPanierG));
+            var reader = commande.ExecuteReader();
+            while (reader.Read())
+            {
+                var p = new LignePanierG_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
+                                         );
 
+                reponse.Add(p);
+            }
+            DetruireConnexionEtCommande();
+            return reponse;
+        }
         public override LignePanierG_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "select id, idPanierG, idRef from LignePanierG where id=@id ";
+            commande.CommandText = "select id, idPanierG, idRef, quantite from LignePanierG where id=@id ";
             commande.Parameters.Add(new SqlParameter("@id", ID));
             var reader = commande.ExecuteReader();
 
@@ -50,7 +69,8 @@ namespace Raminagrobis.DAL.Depot
             {
                 reponse = new LignePanierG_DAL(reader.GetInt32(0),
                                         reader.GetInt32(1),
-                                        reader.GetInt32(2)
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
                                         ); ;
             }
             else
@@ -63,13 +83,53 @@ namespace Raminagrobis.DAL.Depot
             return reponse;
         }
 
+        public List<LignePanierG_DAL> GetByIDFournisseur(int IDFournisseur,DateTime date)
+        {
+            var reponse = new List<LignePanierG_DAL>();
+            CreerConnexionEtCommande();
+            commande.CommandText = "Select lg.id, lg.idPanierG, lg.idRef, lg.quantite from LignePanierG lg " +
+                                    "JOIN Reference re ON lg.idRef = re.id " +
+                                    "JOIN AssoRefFournisseur asso ON asso.idRef = re.id " +
+                                    "JOIN PanierGlobal pg ON pg.id = lg.idPanierG " +
+                                    "WHERE asso.idFournisseur = @idFournisseur AND DATEPART(week,pg.date)=DATEPART(week,@date) ";
+            commande.Parameters.Add(new SqlParameter("@idFournisseur", IDFournisseur));
+            commande.Parameters.Add(new SqlParameter("@date", date));
+            var reader = commande.ExecuteReader();
+            while (reader.Read())
+            {
+                var p = new LignePanierG_DAL(reader.GetInt32(0),
+                                        reader.GetInt32(1),
+                                        reader.GetInt32(2),
+                                        reader.GetInt32(3)
+                                         );
+
+                reponse.Add(p);
+            }
+            DetruireConnexionEtCommande();
+            return reponse;
+        }
+        public bool Exist(LignePanierG_DAL item)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "Select Count(*) FROM LignePanierG WHERE idPanierG = @idPanierG AND idRef = @idRef";
+            commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
+            commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+
+            var count = Convert.ToInt32(commande.ExecuteScalar());
+            DetruireConnexionEtCommande();
+
+            return count > 0;
+        }
+
         public override LignePanierG_DAL Insert(LignePanierG_DAL item)
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "insert into LignePanierG(idPanierG, idRef)" + " values (@idPanierG, @idRef); select scope_identity()";
+            commande.CommandText = "insert into LignePanierG(idPanierG, idRef, quantite)" + " values (@idPanierG, @idRef, @Quantite); select scope_identity()";
             commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+            commande.Parameters.Add(new SqlParameter("@Quantite", item.Quantite));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
             item.ID = id;
@@ -84,9 +144,10 @@ namespace Raminagrobis.DAL.Depot
         {
             CreerConnexionEtCommande();
 
-            commande.CommandText = "update LignePanierG SET idLigneG=@idLigneG, idRef=@idRef where id = @id";
+            commande.CommandText = "update LignePanierG SET idPanierG=@idPanierG, idRef=@idRef, quantite=@quantite where id = @id";
             commande.Parameters.Add(new SqlParameter("@idRef", item.IDRef));
             commande.Parameters.Add(new SqlParameter("@idPanierG", item.IDPanierG));
+            commande.Parameters.Add(new SqlParameter("@quantite", item.Quantite));
 
             commande.Parameters.Add(new SqlParameter("@id", item.ID));
 
@@ -108,13 +169,26 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from LignePanierG where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
+
 
 
             if (commande.ExecuteNonQuery() == 0)
             {
                 throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table LignePanierG");
             }
+            DetruireConnexionEtCommande();
+        }
+
+        public void DeleteAllWithPanierG(int idPanierG)
+        {
+            CreerConnexionEtCommande();
+            commande.CommandText = "delete from LignePanierG where idPanierG = @idPanierG";
+            commande.Parameters.Add(new SqlParameter("@idPanierG", idPanierG));
+            if (commande.ExecuteNonQuery() == 0)
+            {
+                throw new NoEntryException($"Aucune occurance à l'ID de panier {idPanierG}", Tables.LignePanier);
+            }
+
             DetruireConnexionEtCommande();
         }
     }

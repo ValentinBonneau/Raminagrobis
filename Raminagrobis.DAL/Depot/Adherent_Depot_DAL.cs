@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL.Depot
 {
-    class Adherent_Depot_DAL : Depot_DAL<Adherent_DAL>
+    public class Adherent_Depot_DAL : Depot_DAL<Adherent_DAL>
     {
         
 
@@ -31,6 +31,8 @@ namespace Raminagrobis.DAL.Depot
                     reader.GetString(5), 
                     reader.GetString(6),
                     reader.GetDateTime(7));
+
+                reponse.Add(adherent);
             }
 
             DetruireConnexionEtCommande();
@@ -96,7 +98,7 @@ namespace Raminagrobis.DAL.Depot
 
             CreerConnexionEtCommande();
 
-            commande.CommandText = "UPDATE Adherent nom = @nom ,prenomC = @prenomC, nomC = @nomC, sexeC = @sexeC, email = @email,adresse = @adresse,dateA = @dateA where id = @id";
+            commande.CommandText = "UPDATE Adherent set nom = @nom, prenomC = @prenomC, nomC = @nomC, sexeC = @sexeC, email = @email,adresse = @adresse,dateA = @dateA where id = @id";
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@prenomC", item.PrenomC));
             commande.Parameters.Add(new SqlParameter("@nomC", item.NomC));
@@ -106,7 +108,9 @@ namespace Raminagrobis.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@dateA", item.DateA));
             commande.Parameters.Add(new SqlParameter("@id", item.ID));
 
-            if (1 != (int)commande.ExecuteNonQuery()) {
+            var NombreDeLigne = (int)commande.ExecuteNonQuery();
+
+            if (NombreDeLigne != 1) {
                 throw new Exception($"pas d'Adherent à l'id {item.ID}");
             }
 
@@ -120,9 +124,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from Adherent where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
-
-
+            
             if (commande.ExecuteNonQuery() == 0)
             {
                 throw new Exception($"Aucune occurance à l'ID {item.ID} dans la table Adherent");

@@ -32,6 +32,34 @@ namespace Raminagrobis.DAL.Depot
             return listeDePanierG;
 
         }
+        public PanierGlobal_DAL GetByDate(DateTime date)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, date from PanierGlobal where DATEPART(week,date)=DATEPART(week,@date) ";
+            commande.Parameters.Add(new SqlParameter("@date", date));
+            var reader = commande.ExecuteReader();
+
+
+            PanierGlobal_DAL reponse;
+            var depotLigneG = new LignePanierGDepot_DAL();
+
+            if (reader.Read())
+            {
+                reponse = new PanierGlobal_DAL(reader.GetInt32(0),
+                                        reader.GetDateTime(1),
+                                        depotLigneG.GetByIDPanierG(reader.GetInt32(0))
+                                        );
+            }
+            else
+            {
+                throw new NoEntryException($"Pas de PanierGlobal à la date {date}",Tables.PanierGlobal);
+            }
+
+            DetruireConnexionEtCommande();
+
+            return reponse;
+        }
 
         public override PanierGlobal_DAL GetByID(int ID)
         {
@@ -60,20 +88,26 @@ namespace Raminagrobis.DAL.Depot
             return reponse;
         }
 
-        public override PanierGlobal_DAL Insert(PanierGlobal_DAL item)
+        public override PanierGlobal_DAL Insert(PanierGlobal_DAL panierG)
         {
             CreerConnexionEtCommande();
 
             commande.CommandText = "insert into PanierGlobal(date)" + " values (@date); select scope_identity()";
-            commande.Parameters.Add(new SqlParameter("@date", item.Date));
+            commande.Parameters.Add(new SqlParameter("@date", panierG.Date));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-            item.ID = id;
+            panierG.ID = id;
+            var depotLigneG = new LignePanierGDepot_DAL();
+            foreach (var item in panierG.LignesG)
+            {
+                item.IDPanierG = id;
+                depotLigneG.Insert(item);
 
+            }
 
             DetruireConnexionEtCommande();
 
-            return item;
+            return panierG;
         }
 
         public override PanierGlobal_DAL Update(PanierGlobal_DAL item)

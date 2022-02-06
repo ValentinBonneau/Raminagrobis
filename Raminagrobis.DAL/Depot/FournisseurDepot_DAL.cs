@@ -18,6 +18,7 @@ namespace Raminagrobis.DAL.Depot
             var reader = commande.ExecuteReader();
 
             var listeDeFournisseur = new List<Fournisseur_DAL>();
+               
 
             while (reader.Read())
             {
@@ -43,7 +44,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "select id, nom, prenomC, nomC, sexeC, email, adresse from Fournisseur where id=@id ";
-            commande.Parameters.Add(new SqlParameter("@id", ID));
+            commande.Parameters.Add(new SqlParameter("@id", ID.ToString()));
             var reader = commande.ExecuteReader();
 
 
@@ -58,7 +59,7 @@ namespace Raminagrobis.DAL.Depot
                                         reader.GetString(4),
                                         reader.GetString(5),
                                         reader.GetString(6)
-                                        ); ;
+                                        );
             }
             else
             {
@@ -106,7 +107,7 @@ namespace Raminagrobis.DAL.Depot
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@prenomC", item.PrenomC));
             commande.Parameters.Add(new SqlParameter("@nomC", item.NomC));
-            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC));
+            commande.Parameters.Add(new SqlParameter("@sexeC", item.SexeC.ToString()));
             commande.Parameters.Add(new SqlParameter("@email", item.Email));
             commande.Parameters.Add(new SqlParameter("@adresse", item.Adresse));
             var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
@@ -148,10 +149,8 @@ namespace Raminagrobis.DAL.Depot
         public override void Delete(Fournisseur_DAL item)
         {
             CreerConnexionEtCommande();
-            commande.CommandText = "delete from Point where id=@ID";
+            commande.CommandText = "delete from Fournisseur where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
-
 
             if (commande.ExecuteNonQuery() == 0)
             {

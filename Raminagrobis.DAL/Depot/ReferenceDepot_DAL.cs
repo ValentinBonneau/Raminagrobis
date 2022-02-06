@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,6 +40,39 @@ namespace Raminagrobis.DAL.Depot
 
         }
 
+        public Reference_DAL GetByRef(string refs)
+        {
+            CreerConnexionEtCommande();
+
+            commande.CommandText = "select id, ref, nom, marque from Reference where ref=@ref ";
+            commande.Parameters.Add(new SqlParameter("@ref", refs));
+            var reader = commande.ExecuteReader();
+
+            var depotFour = new FournisseurDepot_DAL();
+
+            Reference_DAL reponse;
+
+            if (reader.Read())
+            {
+                var Four = depotFour.GetAllByIDRef(reader.GetInt32(0));
+
+                reponse = new Reference_DAL(reader.GetInt32(0),
+                                        reader.GetString(1),
+                                        reader.GetString(2),
+                                        reader.GetString(3),
+                                        Four
+                                        );
+            }
+            else
+            {
+                throw new Exception($"Pas de Reference à l'id {refs}");
+            }
+
+            DetruireConnexionEtCommande();
+
+            return reponse;
+        }
+
         public override Reference_DAL GetByID(int ID)
         {
             CreerConnexionEtCommande();
@@ -76,27 +109,30 @@ namespace Raminagrobis.DAL.Depot
         public override Reference_DAL Insert(Reference_DAL item)
         {
             CreerConnexionEtCommande();
-
-            commande.CommandText = "insert into Reference(ref, nom, marque)" + " values (@ref, @nom, @marque); select scope_identity()";
+            var dejaPresent = false;
+            commande.CommandText = "select id from Reference where ref = @ref and nom = @nom and marque = @marque ";
             commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
-            var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
-
-            item.ID = id;
-
-
-            DetruireConnexionEtCommande();
-
-            var depotPoint = new FournisseurDepot_DAL();
-            foreach (var poly in item.Reference)
+            var reader = commande.ExecuteReader();
+            if (reader.Read())
             {
-                
-                depotPoint.Insert(poly);
+                item.ID = reader.GetInt32(0);
             }
+            DetruireConnexionEtCommande();
+            if (!dejaPresent)
+            {
+                CreerConnexionEtCommande();
+                commande.CommandText = "insert into Reference(ref, nom, marque)" + " values (@ref, @nom, @marque); select scope_identity()";
+                commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
+                commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
+                commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
+                var id = Convert.ToInt32((decimal)commande.ExecuteScalar());
 
-           
+                item.ID = id;
 
+                DetruireConnexionEtCommande();
+            }
             return item;
         }
 
@@ -105,7 +141,11 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "update Reference SET ref = @ref, nom = @nom, marque = @marque where id = @id";
+
             commande.Parameters.Add(new SqlParameter("@date", item.Reference));
+
+            commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
+
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
 
@@ -129,7 +169,7 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
             commande.CommandText = "delete from Reference where id=@ID";
             commande.Parameters.Add(new SqlParameter("@ID", item.ID));
-            var reader = commande.ExecuteReader();
+            
 
 
             if (commande.ExecuteNonQuery() == 0)

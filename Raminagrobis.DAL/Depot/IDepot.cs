@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Raminagrobis.DAL
 {
-    interface IDepot<Type_DAL>
+    public interface IDepot<Type_DAL>
     {
         public string ChaineDeConnexion { get; set; }
         public List<Type_DAL> GetAll();
