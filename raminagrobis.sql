@@ -1,4 +1,5 @@
- USE [raminagrobis1]
+/****** Créer au préalable la base de donnée ******/
+USE [raminagrobis]
 GO
 /****** Object:  Table [dbo].[Adherent]    Script Date: 09/12/2021 22:09:19 ******/
 SET ANSI_NULLS ON
