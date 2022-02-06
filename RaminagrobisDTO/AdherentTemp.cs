@@ -14,7 +14,7 @@ namespace RaminagrobisDTO
         public String SexeC { get; set; }
         public String Email { get; set; }
         public String Adresse { get; set; }
-        public DateTime DateA { get; set; }
+        public DateTimeOffset DateA { get; set; }
 
     }
 

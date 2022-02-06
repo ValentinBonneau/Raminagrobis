@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using RaminagrobisDTO;
 using Raminagrobis.Metier;
 using Raminagrobis.Metier.Service;
+using Raminagrobis.DAL;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -64,26 +65,55 @@ namespace RaminagrobisAPI.Controllers
         [HttpGet("/Global/{semaine}/cloture")]
         public PanierGlobalTemp GetPanierCloturer(DateTime semaine)
         {
-            var pannier = PanierG.GetByDate(semaine);
-            var ligne = new List<LignePanierGlobalTemp>();
-            var listPrix = Prix.GetByPanierG(pannier.ID);
-            foreach (var item in pannier.LignesG)
+            try
             {
-                ligne.Add(new LignePanierGlobalTemp()
+                var pannier = PanierG.GetByDate(semaine);
+                var ligne = new List<LignePanierGlobalTemp>();
+                var listPrix = Prix.GetByPanierG(pannier.ID);
+                foreach (var item in pannier.LignesG)
                 {
-                    Quantite = item.Quantite,
-                    Reference = item.refs,
-                    ID = item.ID,
-                    Prix = listPrix.Where(p => p.IdLignePanierG == item.ID).First()
-                });
-            };
-            var result = new PanierGlobalTemp()
+                    ligne.Add(new LignePanierGlobalTemp()
+                    {
+                        Quantite = item.Quantite,
+                        Reference = item.refs,
+                        ID = item.ID,
+                        Prix = listPrix.Where(p => p.IdLignePanierG == item.ID).First()
+                    });
+                };
+                PanierGlobalTemp result;
+                if (pannier.Date <= DateTime.MinValue)
+                {
+                    result = new PanierGlobalTemp()
+                    {
+                        ID = pannier.ID,
+                        Date = semaine,
+                        LignesG = ligne
+                    };
+                }
+                else
+                {
+                    result = new PanierGlobalTemp()
+                    {
+                        ID = pannier.ID,
+                        Date = pannier.Date,
+                        LignesG = ligne
+                    };
+                }
+
+                return result;
+            }
+            catch (NoEntryException)
             {
-                ID = pannier.ID,
-                Date = pannier.Date,
-                LignesG = ligne
-            };
-            return result;
+                var result = new PanierGlobalTemp()
+                {
+                    ID = null,
+                    Date = new DateTimeOffset(),
+                    LignesG = null,
+
+                };
+                return result;
+            }
+            
         }
 
         [HttpGet("/Global/{semaine}/cloture/{idAdherent}")]
@@ -115,22 +145,37 @@ namespace RaminagrobisAPI.Controllers
                 {
                     Quantite = item.Quantite,
                     Reference = item.refs,
-                    ID = item.ID
+                    ID = item.ID,
+                    Prix = new PrixTemp()
                 });
             };
-            var result = new PanierGlobalTemp()
+            PanierGlobalTemp result;
+            if( pannier.Date <= DateTime.MinValue)
             {
-                ID = pannier.ID,
-                Date = pannier.Date,
-                LignesG = ligne
-            };
+                result = new PanierGlobalTemp()
+                {
+                    ID = pannier.ID,
+                    Date = semaine,
+                    LignesG = ligne
+                };
+            }
+            else
+            {
+                result = new PanierGlobalTemp()
+                {
+                    ID = pannier.ID,
+                    Date = pannier.Date,
+                    LignesG = ligne
+                };
+            }
+            
 
             return result;
         }
 
         // POST api/<PanierController>
         [HttpPost("{idAdherent}")]
-        public void Post(int idAdherent, IFormFile file)
+        public void Post(int idAdherent, IFormFile file, DateTime semaine)
         {
             PanierTemp panier = new PanierTemp() { Lignes = new List<LignePanierTemp>() };
             using (StreamReader reader = new StreamReader(file.OpenReadStream()))
@@ -148,7 +193,7 @@ namespace RaminagrobisAPI.Controllers
                     panier.Lignes.Add(new LignePanierTemp() { Ref = refs, Quantite = quantitee });
                 }
             }
-            Panier.Insert(panier, idAdherent);
+            Panier.Insert(panier, idAdherent,semaine);
 
         }
     }

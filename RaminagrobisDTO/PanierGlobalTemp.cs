@@ -11,7 +11,7 @@ namespace RaminagrobisDTO
     public class PanierGlobalTemp
     {
         public int? ID { get; set; }
-        public DateTime Date { get; set; }
+        public DateTimeOffset Date { get; set; }
         public IEnumerable<LignePanierGlobalTemp> LignesG { get; set; }
     }
 }

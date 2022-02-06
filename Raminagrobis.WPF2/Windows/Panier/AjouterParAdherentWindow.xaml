@@ -1,0 +1,41 @@
+﻿<Window x:Class="Raminagrobis.WPF2.Windows.Panier.AjouterParAdherentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Raminagrobis.WPF2.Windows.Panier"
+        mc:Ignorable="d"
+        Title="Ajouter Un Panier" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="0">Semaine</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0">Panier(en CSV)</TextBlock>
+            <DatePicker Grid.Row="1" Grid.Column="1" x:Name="DatePick"><!--et pas DickPict--></DatePicker>
+            <Button Grid.Row="3" Grid.Column="1" x:Name="BtnFile" Click="BtnFile_Click">Ouvrir</Button>
+        </Grid>
+        <Button Grid.Column="2" x:Name="BtnAjouter" Grid.Row="2" Click="BtnAjouter_Click">Ajouter</Button>
+    </Grid>
+</Window>

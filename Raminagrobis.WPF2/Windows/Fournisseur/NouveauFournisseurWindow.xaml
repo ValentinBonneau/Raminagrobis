@@ -1,0 +1,71 @@
+﻿<Window x:Class="Raminagrobis.WPF2.Windows.Fournisseur.NouveauFournisseurWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Raminagrobis.WPF2.Windows.Fournisseur"
+        mc:Ignorable="d"
+        Title="NouveauFournisseurWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" MinWidth="130"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0">Entreprise</TextBlock>
+                <TextBox x:Name="pNom" Grid.Row="0" Grid.Column="1"></TextBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="0">Prenom</TextBlock>
+                <TextBox x:Name="pPrenomC" Grid.Row="2" Grid.Column="1"></TextBox>
+
+                <TextBlock Grid.Row="4" Grid.Column="0">Nom</TextBlock>
+                <TextBox x:Name="pNomC" Grid.Row="4" Grid.Column="1"></TextBox>
+
+                <TextBlock Grid.Row="6" Grid.Column="0">Sexe</TextBlock>
+                <ComboBox x:Name="pSexeC" Grid.Row="6" Grid.Column="1">
+                    <ComboBoxItem>Mâle</ComboBoxItem>
+                    <ComboBoxItem>Femelle</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Grid.Row="8" Grid.Column="0">Mail</TextBlock>
+                <TextBox x:Name="pEmail" Grid.Row="8" Grid.Column="1"></TextBox>
+
+                <TextBlock Grid.Row="10" Grid.Column="0">Adresse</TextBlock>
+                <TextBox x:Name="pAdresse" Grid.Row="10" Grid.Column="1"></TextBox>
+            </Grid>
+            <Button x:Name="BtnAjouter" Grid.Row="2" Click="BtnAjouter_Click">Ajouter</Button>
+        </Grid>
+    </Grid>
+</Window>
