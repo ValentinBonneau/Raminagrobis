@@ -1,0 +1,30 @@
+﻿<Page x:Class="Raminagrobis.WPF2.Pages.Panier.OptionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Raminagrobis.WPF2.Pages.Panier"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="OptionPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1">Fournisseur:</TextBlock>
+        <ComboBox Grid.Row="2" x:Name="FournisseurChoix" SelectionChanged="FournisseurChoix_SelectionChanged"></ComboBox>
+        <Frame Grid.Row="3" x:Name="BoutonsPourFournisseur" NavigationUIVisibility="Hidden"></Frame>   
+        <TextBlock Grid.Row="6">Adherent:</TextBlock>
+        <ComboBox Grid.Row="7" x:Name="AdherentChoix" SelectionChanged="AdherentChoix_SelectionChanged"></ComboBox>
+        <Frame Grid.Row="8" x:Name="BoutonsPourAdherent" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</Page>

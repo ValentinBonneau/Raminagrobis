@@ -17,11 +17,14 @@
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <DatePicker x:Name="Calandrier" Grid.Row="0" SelectedDateChanged="Calandrier_SelectedDateChanged"></DatePicker>
+            <Frame x:Name="optionPage" Grid.Row="2" NavigationUIVisibility="Hidden"></Frame>
         </Grid>
         <DataGrid x:Name="Liste" Grid.Column="0" />
+        
         
     </Grid>
 </Page>

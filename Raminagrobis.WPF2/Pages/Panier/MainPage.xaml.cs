@@ -29,19 +29,23 @@ namespace Raminagrobis.WPF2.Pages.Panier
             var date = (DateTime)(sender as DatePicker).SelectedDate;
             var PanierG = _api.ClientApi.ClotureAsync(new DateTimeOffset(date));
             var lignePanierG = new List<LignePanierGDisplay>();
-            foreach (var item in PanierG.Result.LignesG)
+            if(PanierG.Result.LignesG.Count > 0)
             {
-                lignePanierG.Add(new LignePanierGDisplay()
+                foreach (var item in PanierG.Result.LignesG)
                 {
-                    Id = item.Id,
-                    Quantite = item.Quantite,
-                    Reference = item.Reference,
-                    Prix = item.Prix.Prix,
-                    Fournisseur = item.Prix.IdFournisseur
-                });
+                    lignePanierG.Add(new LignePanierGDisplay()
+                    {
+                        Id = item.Id,
+                        Quantite = item.Quantite,
+                        Reference = item.Reference,
+                        Prix = item.Prix.Prix,
+                        Fournisseur = item.Prix.IdFournisseur
+                    });
+                }
+                Liste.ItemsSource = lignePanierG;
+                optionPage.Content = new OptionPage(date);
             }
-            
-            Liste.ItemsSource = lignePanierG;
+
         }
     }
 
