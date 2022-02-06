@@ -141,7 +141,11 @@ namespace Raminagrobis.DAL.Depot
             CreerConnexionEtCommande();
 
             commande.CommandText = "update Reference SET ref = @ref, nom = @nom, marque = @marque where id = @id";
+
+            commande.Parameters.Add(new SqlParameter("@date", item.Reference));
+
             commande.Parameters.Add(new SqlParameter("@ref", item.Reference));
+
             commande.Parameters.Add(new SqlParameter("@nom", item.Nom));
             commande.Parameters.Add(new SqlParameter("@marque", item.Marque));
 
